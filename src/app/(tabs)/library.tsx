@@ -1,17 +1,16 @@
+import PaperView from "@/components/PaperView";
 import { StyleSheet, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LibraryTab() {
   return (
-    <SafeAreaView style={styles.container}>
+    <PaperView style={styles.container}>
       <Text>Hello Library</Text>
-    </SafeAreaView>
+    </PaperView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },

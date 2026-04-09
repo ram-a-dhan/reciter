@@ -1,7 +1,7 @@
+import PaperView from "@/components/PaperView";
 import usePlayButton from "@/hooks/usePlayButton";
-import { Animated, StyleSheet, Text, View } from "react-native";
-import { FAB } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Animated, StyleSheet, View } from "react-native";
+import { FAB, Text } from "react-native-paper";
 
 export default function HomeTab() {
   const {
@@ -13,7 +13,7 @@ export default function HomeTab() {
   } = usePlayButton();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <PaperView style={styles.container}>
       <Text style={styles.hintText}>
         Press the button to start/stop listening.
       </Text>
@@ -30,13 +30,12 @@ export default function HomeTab() {
           />
         </Animated.View>
       </View>
-    </SafeAreaView>
+    </PaperView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
