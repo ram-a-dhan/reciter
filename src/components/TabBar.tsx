@@ -50,7 +50,7 @@ export default function TabBar({ navigation, state, descriptors, insets }: Botto
       }}
       activeColor={theme.colors.primary}
       inactiveColor={theme.colors.onSurfaceVariant}
-      style={{ backgroundColor: theme.colors.surface }}
+      style={{ backgroundColor: theme.colors.elevation.level2 }}
     />
   );
 }
