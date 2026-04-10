@@ -1,15 +1,17 @@
 import TabBar from "@/components/TabBar";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Tabs } from "expo-router";
-import { Appbar } from "react-native-paper";
+import { Appbar, useTheme } from "react-native-paper";
 
 export default function TabsLayout () {
+  const theme = useTheme();
+
   return (
     <>
       <Tabs
         screenOptions={{
           header: ({ options }) => (
-            <Appbar.Header>
+            <Appbar.Header style={{ backgroundColor: theme.colors.elevation.level2 }}>
               <Appbar.Content title={options.title === "Home" ? "Reciter": options.title} />
             </Appbar.Header>
           ),
@@ -55,7 +57,6 @@ export default function TabsLayout () {
             ),
           }}
         />
-        
       </Tabs>
     </>
   );
