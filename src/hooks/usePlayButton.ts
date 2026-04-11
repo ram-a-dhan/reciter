@@ -69,7 +69,7 @@ export default function usePlayButton() {
     {
       transform: [{ scale: rippleScale }],
       opacity: rippleOpacity,
-      backgroundColor: theme.colors.primaryContainer,
+      backgroundColor: theme.colors.primary,
     },
   ];
 
