@@ -1,3 +1,4 @@
+import AppBar from "@/components/AppBar";
 import TabBar from "@/components/TabBar";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Tabs } from "expo-router";
@@ -10,13 +11,9 @@ export default function TabsLayout () {
     <>
       <Tabs
         screenOptions={{
-          header: ({ options }) => (
-            <Appbar.Header style={{ backgroundColor: theme.colors.elevation.level2 }}>
-              <Appbar.Content title={options.title === "Home" ? "Reciter": options.title} />
-            </Appbar.Header>
-          ),
+          header: (props) => <AppBar {...props} />,
         }}
-        tabBar={(props) =><TabBar {...props} />}
+        tabBar={(props) => <TabBar {...props} />}
       >
         <Tabs.Screen
           name="home"

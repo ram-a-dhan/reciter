@@ -9,7 +9,7 @@ export default function PaperView({ children, style }: IPaperViewProps) {
   const theme = useTheme();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }, style]}>
+    <View style={[styles.container, { backgroundColor: theme.colors.elevation.level5 }, style]}>
       {children}
     </View>
   );

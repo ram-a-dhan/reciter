@@ -8,7 +8,7 @@ export default function TabBar({ navigation, state, descriptors, insets }: Botto
     <BottomNavigation.Bar
       navigationState={state}
       safeAreaInsets={insets}
-      labeled={true}
+      labeled={false}
       shifting={true}
       renderTouchable={({ key, ...props }) => (
         <TouchableRipple
@@ -48,9 +48,10 @@ export default function TabBar({ navigation, state, descriptors, insets }: Botto
 
         return label as string;
       }}
-      activeColor={theme.colors.primary}
+      activeColor={theme.colors.primaryContainer}
       inactiveColor={theme.colors.onSurfaceVariant}
-      style={{ backgroundColor: theme.colors.elevation.level2 }}
+      style={{ backgroundColor: theme.colors.elevation.level5 }}
+      activeIndicatorStyle={{ backgroundColor: theme.colors.primary }}
     />
   );
 }

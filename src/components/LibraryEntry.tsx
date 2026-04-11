@@ -13,14 +13,13 @@ export default function LibraryEntry({
   return (
     <TouchableRipple
       onPress={() => {}}
-      rippleColor={theme.colors.primaryContainer.replace("1)", "0.25)")}
       borderless
     >
       <View style={styles.container}>
         <Avatar.Text
-          label={`${chapterNumber}`}
-          labelStyle={{ color: theme.colors.onPrimaryContainer }}
-          style={{ backgroundColor: theme.colors.primaryContainer}}
+          label={`${chapterNumber.toLocaleString("ar-SA")}`}
+          labelStyle={{ color: theme.colors.primaryContainer }}
+          style={{ backgroundColor: theme.colors.primary }}
         />
 
         <View style={styles.textContainer}>
