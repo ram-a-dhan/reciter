@@ -22,10 +22,15 @@ export default function LibraryEntry({
   return (
     <TouchableRipple
       onPress={() => {}}
+      rippleColor={theme.colors.primaryContainer.replace("1)", "0.25)")}
       borderless
     >
       <View style={styles.container}>
-        <Avatar.Text label={`${chapterNumber}`} />
+        <Avatar.Text
+          label={`${chapterNumber}`}
+          labelStyle={{ color: theme.colors.onPrimaryContainer }}
+          style={{ backgroundColor: theme.colors.primaryContainer}}
+        />
 
         <View style={styles.textContainer}>
           <Text style={theme.fonts.titleMedium}>

@@ -1,9 +1,11 @@
 import PaperView from "@/components/PaperView";
 import usePlayButton from "@/hooks/usePlayButton";
 import { Animated, StyleSheet, View } from "react-native";
-import { FAB, Text } from "react-native-paper";
+import { FAB, Text, useTheme } from "react-native-paper";
 
 export default function HomeTab() {
+  const theme = useTheme();
+
   const {
     isPlaying,
     setIsPlaying,
@@ -27,6 +29,8 @@ export default function HomeTab() {
             size="large"
             mode="flat"
             onPress={() => setIsPlaying(!isPlaying)}
+            color={theme.colors.onPrimary}
+            style={{ backgroundColor: theme.colors.primary }}
           />
         </Animated.View>
       </View>
