@@ -12,19 +12,10 @@ export default function LibrarySection({ title }: ILibrarySectionProps) {
     <View
       style={[
         styles.container,
-        { backgroundColor: theme.colors.background },
+        { backgroundColor: theme.colors.elevation.level5 },
       ]}
     >
-      <Text
-        style={[
-          theme.fonts.titleMedium,
-          {
-            color: theme.colors.primary,
-            borderBottomWidth: 1,
-            borderBottomColor: theme.colors.primary,
-          },
-        ]}
-      >
+      <Text style={theme.fonts.titleMedium}>
         {title}
       </Text>
     </View>
@@ -33,8 +24,7 @@ export default function LibrarySection({ title }: ILibrarySectionProps) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 8,
+    paddingBlock: 8,
     paddingInline: 16,
-    marginBottom: 8,
   },
 });

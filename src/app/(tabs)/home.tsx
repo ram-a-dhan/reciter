@@ -17,7 +17,7 @@ export default function HomeTab() {
   return (
     <PaperView style={styles.container}>
       <Text style={theme.fonts.titleMedium}>
-        {isPlaying ? "Listening..." : "Press the button to start/stop listening."}
+        {isPlaying ? "Listening to Ar-Rahman 55:55" : "Press the button to start/stop listening."}
       </Text>
 
       <View style={playButtonContainerStyle}>
@@ -29,7 +29,7 @@ export default function HomeTab() {
             customSize={200}
             mode="flat"
             onPress={() => setIsPlaying(!isPlaying)}
-            color={theme.colors.onPrimary}
+            color={theme.colors.primaryContainer}
             style={{
               backgroundColor: theme.colors.primary,
               borderRadius: "100%",
