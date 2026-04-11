@@ -16,8 +16,8 @@ export default function HomeTab() {
 
   return (
     <PaperView style={styles.container}>
-      <Text style={styles.hintText}>
-        Press the button to start/stop listening.
+      <Text style={theme.fonts.titleMedium}>
+        {isPlaying ? "Listening..." : "Press the button to start/stop listening."}
       </Text>
 
       <View style={playButtonContainerStyle}>
@@ -26,11 +26,14 @@ export default function HomeTab() {
         <Animated.View style={playButtonPulseStyle}>
           <FAB
             icon={isPlaying ? "pause" : "play"}
-            size="large"
+            customSize={200}
             mode="flat"
             onPress={() => setIsPlaying(!isPlaying)}
             color={theme.colors.onPrimary}
-            style={{ backgroundColor: theme.colors.primary }}
+            style={{
+              backgroundColor: theme.colors.primary,
+              borderRadius: "100%",
+            }}
           />
         </Animated.View>
       </View>
@@ -42,9 +45,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
-  },
-  hintText: {
-    fontSize: 16,
-    margin: 16,
+    gap: 32,
   },
 });

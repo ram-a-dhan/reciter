@@ -20,7 +20,6 @@ export default function LibrarySection({ title }: ILibrarySectionProps) {
           theme.fonts.titleMedium,
           {
             color: theme.colors.primary,
-            fontWeight: "900",
             borderBottomWidth: 1,
             borderBottomColor: theme.colors.primary,
           },

@@ -1,22 +1,13 @@
 import { StyleSheet, View } from "react-native";
 import { Avatar, IconButton, Text, TouchableRipple, useTheme } from "react-native-paper";
 
-interface ILibraryEntryProps {
-  id: string;
-  chapterNumber: number;
-  chapterName: string;
-  verseStart: number;
-  verseEnd: number;
-  timestamp: number;
-}
-
 export default function LibraryEntry({
   chapterNumber,
   chapterName,
   verseStart,
   verseEnd,
   timestamp
-}: ILibraryEntryProps) {
+}: ILibraryEntry) {
   const theme = useTheme();
 
   return (
