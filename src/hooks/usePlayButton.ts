@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
   rippleRing: {
     position: "absolute",
     inset: 0,
-    borderRadius: 30,
+    borderRadius: "100%",
   },
 });
