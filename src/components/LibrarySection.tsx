@@ -12,7 +12,7 @@ export default function LibrarySection({ title }: ILibrarySectionProps) {
     <View
       style={[
         styles.container,
-        { backgroundColor: theme.colors.elevation.level5 },
+        { backgroundColor: theme.colors.elevation.level3 },
       ]}
     >
       <Text style={theme.fonts.titleMedium}>
