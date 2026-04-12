@@ -3,7 +3,7 @@ import LibrarySection from "@/components/LibrarySection";
 import PaperView from "@/components/PaperView";
 import { libraryEntries } from "@/constants/library";
 import sectionize from "@/utils/sectionize";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { SectionList, StyleSheet, View } from "react-native";
 import type { SectionListData, SectionListRenderItem } from "react-native";
 import { Text } from "react-native-paper";
@@ -17,31 +17,33 @@ export default function LibraryTab() {
 
   const keyExtractor = (item: ILibraryEntry, index: number) => item.id + index;
 
-  const renderSectionHeader = ({ section: { title } }: { section: SectionListData<ILibraryEntry, ILibrarySection> }) => {
+  const renderSectionHeader = useCallback(({ section: { title } }: { section: SectionListData<ILibraryEntry, ILibrarySection> }) => {
     return (
       <LibrarySection title={title} />
     )
-  };
+  }, []);
 
-  const renderItem: SectionListRenderItem<ILibraryEntry, ILibrarySection> = ({ item }) => {
+  const renderItem: SectionListRenderItem<ILibraryEntry, ILibrarySection> = useCallback(({ item }) => {
     return (
       <LibraryEntry {...item} />
     )
+  }, []);
+
+  const ListFooterComponent = () => {
+    return (
+      <View style={styles.footer}>
+        <Text>— END —</Text>
+      </View>
+    );
   };
 
-  const ListFooterComponent = sections.length ? (
-    <View style={styles.footer}>
-      <Text>— END —</Text>
-    </View>
-  ) : (
-    <></>
-  );
-
-  const ListEmptyComponent = (
-    <View style={styles.empty}>
-      <Text>— EMPTY —</Text>
-    </View>
-  );
+  const ListEmptyComponent = () => {
+    return (
+      <View style={styles.empty}>
+        <Text>— EMPTY —</Text>
+      </View>
+    );
+  };
 
   return (
     <PaperView>
@@ -51,8 +53,8 @@ export default function LibraryTab() {
         stickySectionHeadersEnabled
         renderSectionHeader={renderSectionHeader}
         renderItem={renderItem}
-        ListFooterComponent={ListFooterComponent}
-        ListEmptyComponent={ListEmptyComponent}
+        ListFooterComponent={sections.length ? ListFooterComponent : null}
+        ListEmptyComponent={!sections.length ? ListEmptyComponent : null}
         style={styles.sectionList}
         contentContainerStyle={styles.sectionListContentContainer}
       />

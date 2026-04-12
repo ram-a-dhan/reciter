@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { StyleSheet, View } from "react-native";
 import { Avatar, IconButton, Text, TouchableRipple, useTheme } from "react-native-paper";
 
-export default function LibraryEntry({
+function LibraryEntry({
   chapterNumber,
   chapterName,
   verseStart,
@@ -55,3 +56,5 @@ const styles = StyleSheet.create({
     flex: 2,
   },
 });
+
+export default memo(LibraryEntry);
