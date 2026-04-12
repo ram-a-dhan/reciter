@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
@@ -5,7 +6,7 @@ interface ILibrarySectionProps {
   title: string;
 }
 
-export default function LibrarySection({ title }: ILibrarySectionProps) {
+function LibrarySection({ title }: ILibrarySectionProps) {
   const theme = useTheme();
 
   return (
@@ -28,3 +29,5 @@ const styles = StyleSheet.create({
     paddingInline: 16,
   },
 });
+
+export default memo(LibrarySection);
