@@ -1,6 +1,6 @@
 import { Appbar, Text, useTheme } from "react-native-paper";
 import type { BottomTabHeaderProps } from "@react-navigation/bottom-tabs";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
 export default function AppBar({ options }: BottomTabHeaderProps) {
   const theme = useTheme();
@@ -10,7 +10,17 @@ export default function AppBar({ options }: BottomTabHeaderProps) {
       <Appbar.Content
         title={
           options.title === "Home"
-            ? "Reciter"
+            ? <View style={styles.titleBox}>
+                <Image
+                  source={require("@/assets/icons/reciter/reciter2.png")}
+                  width={24}
+                  height={24}
+                  style={styles.titleImg}
+                />
+                <Text style={theme.fonts.titleLarge}>
+                  Reciter
+                </Text>
+              </View>
             : options.title
         }
       />
@@ -22,5 +32,10 @@ const styles = StyleSheet.create({
   titleBox: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 4,
+  },
+  titleImg: {
+    width: 24,
+    height: 24,
   },
 });

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "reciter",
+    "name": "Reciter",
     "slug": "reciter",
     "scheme": "reciter",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
+    "icon": "./src/assets/icons/reciter/reciter1.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -14,11 +14,12 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "icon": "./src/assets/icons/reciter/reciter1.png"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/icons/reciter/reciter1.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
