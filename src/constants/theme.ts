@@ -5,19 +5,10 @@ export const lightTheme: MD3Theme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
-
-    // Default Light theme primary accent.
-    // primary: "rgb(39, 108, 43)",
-    // onPrimary: "rgb(255, 255, 255)",
-    // primaryContainer: "rgb(170, 245, 163)",
-    // onPrimaryContainer: "rgb(0, 34, 4)",
-
-    // Copied from the dark theme.
-    primary: "rgb(143, 216, 138)",
-    onPrimary: "rgb(0, 57, 10)",
-    primaryContainer: "rgb(6, 83, 21)",
-    onPrimaryContainer: "rgb(170, 245, 163)",
-
+    primary: "rgb(39, 108, 43)",
+    onPrimary: "rgb(255, 255, 255)",
+    primaryContainer: "rgb(170, 245, 163)",
+    onPrimaryContainer: "rgb(0, 34, 4)",
     secondary: "rgb(82, 99, 79)",
     onSecondary: "rgb(255, 255, 255)",
     secondaryContainer: "rgb(213, 232, 207)",
