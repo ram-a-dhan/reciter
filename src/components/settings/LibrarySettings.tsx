@@ -3,45 +3,44 @@ import { View } from "react-native";
 import { List, Switch, TouchableRipple } from "react-native-paper";
 
 export default function LibrarySettings() {
-  const [chapterNumberValue, setChapterNumberValue] = useState(true);
-  const [isSkipFatihaValue, setIsSkipFatihaValue] = useState(true);
+  const [isArabic, setIsArabic] = useState(true);
+  const [isSkip, setIsSkip] = useState(true);
 
   return (
     <>
       <List.Section title="Library">
         <TouchableRipple
-          onPress={() => setChapterNumberValue(!chapterNumberValue)}
+          onPress={() => setIsArabic(!isArabic)}
           borderless
         >
           <List.Item
             title="Use Arabic Number"
-            description={chapterNumberValue ? "Chapter number is eastern arabic." : "Chapter number is western arabic."}
-            left={(props) => <List.Icon {...props} icon="abjad-arabic" />}
+            description={isArabic ? "Chapter number is eastern arabic." : "Chapter number is western arabic."}
+            left={(props) => <List.Icon {...props} icon={isArabic ? "abjad-arabic" : "numeric-4-box-outline"} />}
             right={(props) => (
               <View {...props} pointerEvents="none">
-                <Switch value={chapterNumberValue} />
+                <Switch value={isArabic} />
               </View>
             )}
           />
         </TouchableRipple>
 
         <TouchableRipple
-          onPress={() => setIsSkipFatihaValue(!isSkipFatihaValue)}
+          onPress={() => setIsSkip(!isSkip)}
           borderless
         >
           <List.Item
             title="Skip Al-Fatiha"
-            description={isSkipFatihaValue ? "Al-Fatiha will not be recorded." : "Al-Fatiha will be recorded."}
-            left={(props) => <List.Icon {...props} icon="door-sliding" />}
+            description={isSkip ? "Al-Fatiha will not be recorded." : "Al-Fatiha will be recorded."}
+            left={(props) => <List.Icon {...props} icon={isSkip ? "door-sliding" : "door-sliding-open"} />}
             right={(props) => (
               <View {...props} pointerEvents="none">
-                <Switch value={isSkipFatihaValue} />
+                <Switch value={isSkip} />
               </View>
             )}
           />
         </TouchableRipple>
       </List.Section>
-
     </>
   );
 }

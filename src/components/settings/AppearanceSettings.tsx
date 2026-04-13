@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { View } from "react-native";
-import { List, RadioButton, TouchableRipple } from "react-native-paper";
+import { Button, Dialog, List, Portal, RadioButton, TouchableRipple } from "react-native-paper";
 import type { ComponentProps } from "react";
 import type Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
@@ -9,7 +9,6 @@ type IIconName = ComponentProps<typeof Icon>["name"];
 interface IThemeOption {
   label: string;
   value: string;
-  description: string;
   icon: IIconName;
 }
 
@@ -17,51 +16,84 @@ const themeOptions: IThemeOption[] = [
   {
     label: "Auto",
     value: "auto",
-    description: "Follow device's system theme.",
     icon: "theme-light-dark",
   },
   {
     label: "Light",
     value: "light",
-    description: "Clear view on everything.",
     icon: "white-balance-sunny",
   },
   {
     label: "Dark",
     value: "dark",
-    description: "Easy on the eyes.",
     icon: "moon-waning-crescent",
   },
 ];
 
 export default function AppearanceSettings() {
-  const [themeValue, setThemeValue] = useState("auto");
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedTheme, setSelectedTheme] = useState<IThemeOption>(themeOptions[0]);
 
   return (
     <>
-      <List.Section title="Theme">
-        {themeOptions.map(({ label, value, description, icon }, index) => (
-          <TouchableRipple
-            key={index}
-            onPress={() => setThemeValue(value)}
-            borderless
-          >
-            <List.Item
-              title={label}
-              description={description}
-              left={(props) => <List.Icon {...props} icon={icon} />}
-              right={(props) => (
-                <View {...props} pointerEvents="none">
-                  <RadioButton
-                    value={value}
-                    status={themeValue === value ? "checked" : "unchecked"}
-                  />
-                </View>
-              )}
-            />
-          </TouchableRipple>
-        ))}
+      <List.Section title="Appearance">
+        <TouchableRipple
+          onPress={() => setIsOpen(!isOpen)}
+          borderless
+        >
+          <List.Item
+            title="App Theme"
+            description={selectedTheme.label}
+            left={(props) => <List.Icon {...props} icon={selectedTheme.icon} />}
+            right={(props) => (
+              <View {...props} pointerEvents="none">
+                <List.Icon {...props} icon="chevron-right" />
+              </View>
+            )}
+          />
+        </TouchableRipple>
       </List.Section>
+
+      <Portal>
+        <Dialog
+          visible={isOpen}
+          dismissable={false}
+          dismissableBackButton
+          onDismiss={() => setIsOpen(!isOpen)}
+        >
+          <Dialog.Title>Theme</Dialog.Title>
+          <Dialog.ScrollArea style={{ paddingInline: 0 }}>
+            {themeOptions.map(({ label, value, icon }, index) => (
+              <TouchableRipple
+                key={index}
+                onPress={() => {
+                  setSelectedTheme({ label, value, icon });
+                  setIsOpen(!isOpen);
+                }}
+                borderless
+              >
+                <List.Item
+                  title={label}
+                  left={(props) => <List.Icon {...props} icon={icon} />}
+                  right={(props) => (
+                    <View {...props} pointerEvents="none">
+                      <RadioButton
+                        value={value}
+                        status={selectedTheme.value === value ? "checked" : "unchecked"}
+                      />
+                    </View>
+                  )}
+                />
+              </TouchableRipple>
+            ))}
+          </Dialog.ScrollArea>
+          <Dialog.Actions>
+            <Button onPress={() => setIsOpen(!isOpen)}>
+              Close
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </>
   );
 }
