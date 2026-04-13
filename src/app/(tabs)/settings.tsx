@@ -1,18 +1,17 @@
 import PaperView from "@/components/PaperView";
-import { StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
+ import AccountSettings from "@/components/settings/AccountSettings";
+import AppearanceSettings from "@/components/settings/AppearanceSettings";
+import LibrarySettings from "@/components/settings/LibrarySettings";
+import { ScrollView } from "react-native";
 
 export default function SettingsTab() {
   return (
-    <PaperView style={styles.container}>
-      <Text>Hello Settings</Text>
+    <PaperView>
+      <ScrollView>
+        <AccountSettings />
+        <AppearanceSettings />
+        <LibrarySettings />
+      </ScrollView>
     </PaperView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
