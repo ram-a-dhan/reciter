@@ -1,3 +1,4 @@
+import { IThemeOption } from "@/types/theme";
 import { MD3DarkTheme, MD3LightTheme } from "react-native-paper";
 import type { MD3Theme } from "react-native-paper";
 
@@ -94,3 +95,21 @@ export const darkTheme: MD3Theme = {
     backdrop: "rgba(44, 50, 42, 0.4)"
   }
 };
+
+export const themeOptions: IThemeOption[] = [
+  {
+    label: "Auto",
+    value: "auto",
+    icon: "theme-light-dark",
+  },
+  {
+    label: "Light",
+    value: "light",
+    icon: "white-balance-sunny",
+  },
+  {
+    label: "Dark",
+    value: "dark",
+    icon: "moon-waning-crescent",
+  },
+];
