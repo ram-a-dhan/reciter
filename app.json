@@ -34,7 +34,8 @@
     "plugins": [
       "expo-router",
       "expo-system-ui",
-      "expo-navigation-bar"
+      "expo-navigation-bar",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
