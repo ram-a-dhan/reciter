@@ -1,38 +1,12 @@
+import { themeOptions } from "@/constants/theme";
+import { useThemeStore } from "@/stores/theme";
 import { useState } from "react";
 import { View } from "react-native";
 import { Button, Dialog, List, Portal, RadioButton, TouchableRipple } from "react-native-paper";
-import type { ComponentProps } from "react";
-import type Icon from "@expo/vector-icons/MaterialCommunityIcons";
-
-type IIconName = ComponentProps<typeof Icon>["name"];
-
-interface IThemeOption {
-  label: string;
-  value: string;
-  icon: IIconName;
-}
-
-const themeOptions: IThemeOption[] = [
-  {
-    label: "Auto",
-    value: "auto",
-    icon: "theme-light-dark",
-  },
-  {
-    label: "Light",
-    value: "light",
-    icon: "white-balance-sunny",
-  },
-  {
-    label: "Dark",
-    value: "dark",
-    icon: "moon-waning-crescent",
-  },
-];
 
 export default function AppearanceSettings() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedTheme, setSelectedTheme] = useState<IThemeOption>(themeOptions[0]);
+  const { selectedTheme, setSelectedTheme } = useThemeStore();
 
   return (
     <>
