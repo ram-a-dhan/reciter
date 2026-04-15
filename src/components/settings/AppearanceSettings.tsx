@@ -6,7 +6,8 @@ import { Button, Dialog, List, Portal, RadioButton, TouchableRipple } from "reac
 
 export default function AppearanceSettings() {
   const [isOpen, setIsOpen] = useState(false);
-  const { selectedTheme, setSelectedTheme } = useThemeStore();
+  const selectedTheme = useThemeStore((state) => state.selectedTheme);
+  const setSelectedTheme = useThemeStore((state) => state.setSelectedTheme);
 
   return (
     <>
@@ -21,7 +22,7 @@ export default function AppearanceSettings() {
             left={(props) => <List.Icon {...props} icon={selectedTheme.icon} />}
             right={(props) => (
               <View {...props} pointerEvents="none">
-                <List.Icon {...props} icon="chevron-right" />
+                <List.Icon icon="chevron-right" />
               </View>
             )}
           />
@@ -31,11 +32,11 @@ export default function AppearanceSettings() {
       <Portal>
         <Dialog
           visible={isOpen}
-          dismissable={false}
+          dismissable
           dismissableBackButton
           onDismiss={() => setIsOpen(!isOpen)}
         >
-          <Dialog.Title>Theme</Dialog.Title>
+          <Dialog.Title>App Theme</Dialog.Title>
           <Dialog.ScrollArea style={{ paddingInline: 0 }}>
             {themeOptions.map(({ label, value, icon }, index) => (
               <TouchableRipple

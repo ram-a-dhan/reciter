@@ -1,16 +1,16 @@
 import { create } from "zustand";
-import { createJSONStorage, persist,  } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { themeOptions } from "@/constants/theme";
 import type { IThemeOption } from "@/types/theme";
 
-interface IUseTheme {
+interface IUseThemeStore {
   selectedTheme: IThemeOption;
-  setSelectedTheme: (theme: IThemeOption) => void;
+  setSelectedTheme: (payload: IThemeOption) => void;
 }
 
-export const useThemeStore = create<IUseTheme>()(
+export const useThemeStore = create<IUseThemeStore>()(
   persist(
     immer((set) => ({
       selectedTheme: themeOptions[0],
