@@ -2,14 +2,17 @@ import LibraryEntry from "@/components/LibraryEntry";
 import LibrarySection from "@/components/LibrarySection";
 import PaperView from "@/components/PaperView";
 import { libraryEntries } from "@/constants/library";
+import { useLibraryStore } from "@/stores/library";
 import sectionize from "@/utils/sectionize";
 import { useCallback, useMemo, useState } from "react";
 import { SectionList, StyleSheet, View } from "react-native";
 import type { SectionListData, SectionListRenderItem } from "react-native";
-import { Text } from "react-native-paper";
+import { ActivityIndicator, Text } from "react-native-paper";
 
 export default function LibraryTab() {
   const [entries] = useState<ILibraryEntry[]>(libraryEntries);
+  // const entries = useLibraryStore((state) => state.entries);
+  const hasHydrated = useLibraryStore.persist.hasHydrated();
 
   const sections = useMemo(() => {
     return sectionize(entries);
@@ -40,7 +43,11 @@ export default function LibraryTab() {
   const ListEmptyComponent = () => {
     return (
       <View style={styles.empty}>
-        <Text>— EMPTY —</Text>
+        {hasHydrated ? (
+          <Text>— EMPTY —</Text>
+        ) : (
+          <ActivityIndicator animating={!hasHydrated} />
+        )}
       </View>
     );
   };

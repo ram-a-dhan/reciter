@@ -1,3 +1,4 @@
+import { useLibraryStore } from "@/stores/library";
 import { memo } from "react";
 import { StyleSheet, View } from "react-native";
 import { Avatar, IconButton, Text, TouchableRipple, useTheme } from "react-native-paper";
@@ -11,6 +12,8 @@ function LibraryEntry({
 }: ILibraryEntry) {
   const theme = useTheme();
 
+  const isArabic = useLibraryStore((state) => state.isArabic);
+
   return (
     <TouchableRipple
       onPress={() => {}}
@@ -18,7 +21,7 @@ function LibraryEntry({
     >
       <View style={styles.container}>
         <Avatar.Text
-          label={`${chapterNumber.toLocaleString("ar-SA")}`}
+          label={`${isArabic ? chapterNumber.toLocaleString("ar-SA") : chapterNumber}`}
           labelStyle={{ color: theme.colors.primaryContainer }}
           style={{ backgroundColor: theme.colors.primary }}
         />

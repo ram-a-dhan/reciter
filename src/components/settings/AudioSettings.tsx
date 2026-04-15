@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { View } from "react-native";
 import { List, TouchableRipple } from "react-native-paper";
 
 interface ILangOption {
@@ -73,7 +74,11 @@ export default function AudioSettings() {
             title="Translation Language"
             description={"English"}
             left={(props) => <List.Icon {...props} icon="translate" />}
-            right={(props) => <List.Icon {...props} icon="chevron-right" />}
+            right={(props) => (
+              <View {...props}>
+                <List.Icon icon="chevron-right" />
+              </View>
+            )}
           />
         </TouchableRipple>
       </List.Section>

@@ -1,5 +1,5 @@
 import { ActivityIndicator, IconButton, List, Tooltip, TouchableRipple } from "react-native-paper";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useState } from "react";
 
 export default function AccountSettings() {
@@ -29,12 +29,12 @@ export default function AccountSettings() {
             borderless
           >
             <List.Item
-              style={{ paddingRight: 30 }}
+              style={{ paddingRight: 8 }}
               title={"Sign In"}
               description={"Sign in to backup your library & settings."}
               left={(props) => <List.Icon {...props} icon="login" />}
               right={(props) => (
-                <View  {...props} pointerEvents="none">
+                <View  {...props} style={styles.buttonContainer} pointerEvents="none">
                   <ActivityIndicator animating={isLoading} />
                 </View>
               )}
@@ -47,12 +47,12 @@ export default function AccountSettings() {
             borderless
           >
             <List.Item
-              style={{ paddingRight: 16 }}
+              style={{ paddingRight: 8 }}
               title={"Username"}
               description={"Your library & settings are backed up."}
               left={(props) => <List.Icon {...props} icon="account-circle" />}
               right={(props) => (
-                <View  {...props}>
+                <View  {...props} style={styles.buttonContainer}>
                   <Tooltip title="Delete backup and sign out.">
                     <IconButton icon="logout" onPress={logInOut} loading={isLoading} />
                   </Tooltip>
@@ -66,3 +66,13 @@ export default function AccountSettings() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    minWidth: 52.1,
+    minHeight: 52.1,
+  },
+});

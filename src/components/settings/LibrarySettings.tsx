@@ -1,10 +1,13 @@
+import { useLibraryStore } from "@/stores/library";
 import { useState } from "react";
 import { View } from "react-native";
 import { List, Switch, TouchableRipple } from "react-native-paper";
 
 export default function LibrarySettings() {
-  const [isArabic, setIsArabic] = useState(true);
-  const [isSkip, setIsSkip] = useState(true);
+  const isArabic = useLibraryStore((state) => state.isArabic);
+  const setIsArabic = useLibraryStore((state) => state.setIsArabic);
+  const isSkip = useLibraryStore((state) => state.isSkip);
+  const setIsSkip = useLibraryStore((state) => state.setIsSkip);
 
   return (
     <>
@@ -14,6 +17,7 @@ export default function LibrarySettings() {
           borderless
         >
           <List.Item
+            style={{ paddingRight: 16 }}
             title="Use Arabic Number"
             description={isArabic ? "Chapter number is eastern arabic." : "Chapter number is western arabic."}
             left={(props) => <List.Icon {...props} icon={isArabic ? "abjad-arabic" : "numeric-4-box-outline"} />}
@@ -30,6 +34,7 @@ export default function LibrarySettings() {
           borderless
         >
           <List.Item
+            style={{ paddingRight: 16 }}
             title="Skip Al-Fatiha"
             description={isSkip ? "Al-Fatiha will not be recorded." : "Al-Fatiha will be recorded."}
             left={(props) => <List.Icon {...props} icon={isSkip ? "door-sliding" : "door-sliding-open"} />}
