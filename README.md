@@ -52,5 +52,5 @@ $ pnpm dlx expo-doctor
 Fix diagnosed problems:
 
 ```
-$ pnpm exec install --check
+$ pnpm exec expo install --check
 ```
