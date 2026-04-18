@@ -1,78 +1,23 @@
-import { useState } from "react";
+import { useTranslationStore } from "@/stores/translation";
+import { useRouter } from "expo-router";
 import { View } from "react-native";
 import { List, TouchableRipple } from "react-native-paper";
 
-interface ILangOption {
-  label: string;
-  value: string;
-}
-
-const langOptions: ILangOption[] = [
-  {
-    label: "English",
-    value: "EN",
-  },
-  {
-    label: "Spanish",
-    value: "ES",
-  },
-  {
-    label: "Russian",
-    value: "RU",
-  },
-  {
-    label: "Swedish",
-    value: "SE",
-  },
-  {
-    label: "French",
-    value: "FR",
-  },
-  {
-    label: "German",
-    value: "DE",
-  },
-  {
-    label: "Italian",
-    value: "IT",
-  },
-  {
-    label: "Turkish",
-    value: "TR",
-  },
-  {
-    label: "Malaysian",
-    value: "MY",
-  },
-  {
-    label: "Indonesian",
-    value: "ID",
-  },
-  {
-    label: "Japanese",
-    value: "JP",
-  },
-  {
-    label: "Korean",
-    value: "KR",
-  },
-  {
-    label: "Chinese",
-    value: "CN",
-  },
-];
-
 export default function AudioSettings() {
+  const router = useRouter();
+
+  const selectedTranslation = useTranslationStore((state) => state.selectedTranslation);
+  
   return (
     <>
       <List.Section title="Audio">
         <TouchableRipple
-          onPress={() => {}}
+          onPress={() => router.push("/settings/translations")}
           borderless
         >
           <List.Item
             title="Translation Language"
-            description={"English"}
+            description={selectedTranslation.label}
             left={(props) => <List.Icon {...props} icon="translate" />}
             right={(props) => (
               <View {...props}>
