@@ -53,7 +53,7 @@ export default function AccountSettings() {
               left={(props) => <List.Icon {...props} icon="account-circle" />}
               right={(props) => (
                 <View  {...props} style={styles.buttonContainer}>
-                  <Tooltip title="Delete backup and sign out.">
+                  <Tooltip title="Sign out.">
                     <IconButton icon="logout" onPress={logInOut} loading={isLoading} />
                   </Tooltip>
                 </View>

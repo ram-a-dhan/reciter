@@ -51,6 +51,7 @@ export default function TranslationOptionDownloaded({ translationOption }: ILang
             <Menu
               visible={isVisibleMenu}
               onDismiss={toggleMenu}
+              anchorPosition="bottom"
               anchor={
                 <IconButton
                   icon="dots-vertical"
