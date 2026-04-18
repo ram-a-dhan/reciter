@@ -2,7 +2,7 @@ const getID = () => Math.random().toString().split(".")[1];
 
 const getTimestamp = (days: number = 0) => Date.now() - 1_000 * 60 * 60 * 24 * days;
 
-export const libraryEntries: ILibraryEntry[] = [
+export const LIBRARY_ENTRIES: ILibraryEntry[] = [
   {
     id: getID(),
     chapterNumber: 114,

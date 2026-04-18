@@ -1,13 +1,20 @@
-import { themeOptions } from "@/constants/theme";
+import { THEME_OPTIONS } from "@/constants/theme";
 import { useThemeStore } from "@/stores/theme";
+import { IThemeOption } from "@/types/theme";
 import { useState } from "react";
 import { View } from "react-native";
 import { Button, Dialog, List, Portal, RadioButton, TouchableRipple } from "react-native-paper";
+import ThemeOption from "@/components/options/ThemeOption";
 
 export default function AppearanceSettings() {
   const [isOpen, setIsOpen] = useState(false);
   const selectedTheme = useThemeStore((state) => state.selectedTheme);
   const setSelectedTheme = useThemeStore((state) => state.setSelectedTheme);
+
+  const onPressTheme = (themeOption: IThemeOption) => {
+    setSelectedTheme(themeOption);
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
@@ -38,28 +45,13 @@ export default function AppearanceSettings() {
         >
           <Dialog.Title>App Theme</Dialog.Title>
           <Dialog.ScrollArea style={{ paddingInline: 0 }}>
-            {themeOptions.map(({ label, value, icon }, index) => (
-              <TouchableRipple
+            {THEME_OPTIONS.map((themeOption, index) => (
+              <ThemeOption
                 key={index}
-                onPress={() => {
-                  setSelectedTheme({ label, value, icon });
-                  setIsOpen(!isOpen);
-                }}
-                borderless
-              >
-                <List.Item
-                  title={label}
-                  left={(props) => <List.Icon {...props} icon={icon} />}
-                  right={(props) => (
-                    <View {...props} pointerEvents="none">
-                      <RadioButton
-                        value={value}
-                        status={selectedTheme.value === value ? "checked" : "unchecked"}
-                      />
-                    </View>
-                  )}
-                />
-              </TouchableRipple>
+                themeOption={themeOption}
+                selectedTheme={selectedTheme}
+                onPress={onPressTheme}
+              />
             ))}
           </Dialog.ScrollArea>
           <Dialog.Actions>

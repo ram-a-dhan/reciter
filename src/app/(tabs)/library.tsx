@@ -1,7 +1,7 @@
 import LibraryEntry from "@/components/LibraryEntry";
 import LibrarySection from "@/components/LibrarySection";
 import PaperView from "@/components/PaperView";
-import { libraryEntries } from "@/constants/library";
+import { LIBRARY_ENTRIES } from "@/constants/library";
 import { useLibraryStore } from "@/stores/library";
 import sectionize from "@/utils/sectionize";
 import { useCallback, useMemo, useState } from "react";
@@ -10,7 +10,7 @@ import type { SectionListData, SectionListRenderItem } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
 
 export default function LibraryTab() {
-  const [entries] = useState<ILibraryEntry[]>(libraryEntries);
+  const [entries] = useState<ILibraryEntry[]>(LIBRARY_ENTRIES);
   // const entries = useLibraryStore((state) => state.entries);
   const hasHydrated = useLibraryStore.persist.hasHydrated();
 
