@@ -1,7 +1,7 @@
 import { useLibraryStore } from "@/stores/library";
-import { useState } from "react";
 import { View } from "react-native";
-import { List, Switch, TouchableRipple } from "react-native-paper";
+import { List, TouchableRipple } from "react-native-paper";
+import MaterialSwitch from "@/components/MaterialSwitch";
 
 export default function LibrarySettings() {
   const isArabic = useLibraryStore((state) => state.isArabic);
@@ -23,7 +23,10 @@ export default function LibrarySettings() {
             left={(props) => <List.Icon {...props} icon={isArabic ? "abjad-arabic" : "numeric-4-box-outline"} />}
             right={(props) => (
               <View {...props} pointerEvents="none">
-                <Switch value={isArabic} />
+                <MaterialSwitch
+                  selected={isArabic}
+                  onPress={() => {}}
+                />
               </View>
             )}
           />
@@ -40,7 +43,10 @@ export default function LibrarySettings() {
             left={(props) => <List.Icon {...props} icon={isSkip ? "door-sliding" : "door-sliding-open"} />}
             right={(props) => (
               <View {...props} pointerEvents="none">
-                <Switch value={isSkip} />
+                <MaterialSwitch
+                  selected={isSkip}
+                  onPress={() => {}}
+                />
               </View>
             )}
           />
