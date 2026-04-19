@@ -1,7 +1,18 @@
 import { useTranslationStore } from "@/stores/translation";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { IconButton, List, Menu, RadioButton, TouchableRipple, useTheme } from "react-native-paper";
+import {
+  Button,
+  Dialog,
+  IconButton,
+  List,
+  Menu,
+  Portal,
+  RadioButton,
+  Text,
+  TouchableRipple,
+  useTheme,
+} from "react-native-paper";
 
 interface ILangOptionDownloadedProps {
   translationOption: ITranslationOption;
@@ -11,6 +22,7 @@ export default function TranslationOptionDownloaded({ translationOption }: ILang
   const theme = useTheme();
 
   const [isVisibleMenu, setIsVisibleMenu] = useState(false);
+  const [isVisibleDialog, setIsVisibleDialog] = useState(false);
 
   const translations = useTranslationStore((state) => state.translations);
   const selectedTranslation = useTranslationStore((state) => state.selectedTranslation);
@@ -23,12 +35,16 @@ export default function TranslationOptionDownloaded({ translationOption }: ILang
     setIsVisibleMenu(!isVisibleMenu);
   };
 
+  const toggleDialog = () => {
+    setIsVisibleDialog(!isVisibleDialog);
+  };
+
   const onPressRemove = (value: string) => {
     if (selectedTranslation.value === value) {
       setSelectedTranslation(translations[0]);
     }
     toggleIsDownloaded(value, false);
-    toggleMenu();
+    toggleDialog();
   };
 
   return (
@@ -63,9 +79,45 @@ export default function TranslationOptionDownloaded({ translationOption }: ILang
               <Menu.Item
                 leadingIcon="minus-circle"
                 title="Remove"
-                onPress={() => onPressRemove(translationOption.value)}
+                onPress={() => {
+                  toggleMenu();
+                  toggleDialog();
+                }}
               />
             </Menu>
+
+            <Portal>
+              <Dialog
+                visible={isVisibleDialog}
+                dismissable
+                dismissableBackButton
+                onDismiss={toggleDialog}
+              >
+                <Dialog.Title>Remove</Dialog.Title>
+                <Dialog.Content>
+                  <Text>
+                    Remove this translation?
+                  </Text>
+                  <Text>
+                    {translationOption.label}
+                  </Text>
+                </Dialog.Content>
+                <Dialog.Actions>
+                  <Button
+                    textColor={theme.colors.secondary}
+                    onPress={toggleDialog}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    textColor={theme.colors.error}
+                    onPress={() => onPressRemove(translationOption.value)}
+                  >
+                    OK
+                  </Button>
+                </Dialog.Actions>
+              </Dialog>
+            </Portal>
           </View>
         )}
       />

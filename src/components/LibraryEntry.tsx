@@ -1,7 +1,19 @@
 import { useLibraryStore } from "@/stores/library";
 import { memo, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Avatar, Divider, IconButton, List, Menu, Text, TouchableRipple, useTheme } from "react-native-paper";
+import {
+  Avatar,
+  Button,
+  Dialog,
+  Divider,
+  IconButton,
+  List,
+  Menu,
+  Portal,
+  Text,
+  TouchableRipple,
+  useTheme,
+} from "react-native-paper";
 
 function LibraryEntry({
   chapterNumber,
@@ -13,11 +25,16 @@ function LibraryEntry({
   const theme = useTheme();
 
   const [isVisibleMenu, setIsVisibleMenu] = useState(false);
+  const [isVisibleDialog, setIsVisibleDialog] = useState(false);
 
   const isArabic = useLibraryStore((state) => state.isArabic);
 
   const toggleMenu = () => {
     setIsVisibleMenu(!isVisibleMenu);
+  };
+
+  const toggleDialog = () => {
+    setIsVisibleDialog(!isVisibleDialog);
   };
 
   return (
@@ -75,9 +92,45 @@ function LibraryEntry({
               <Menu.Item
                 leadingIcon="minus-circle"
                 title="Remove"
-                onPress={toggleMenu}
+                onPress={() => {
+                  toggleMenu();
+                  toggleDialog();
+                }}
               />
             </Menu>
+
+            <Portal>
+              <Dialog
+                visible={isVisibleDialog}
+                dismissable
+                dismissableBackButton
+                onDismiss={toggleDialog}
+              >
+                <Dialog.Title>Remove</Dialog.Title>
+                <Dialog.Content>
+                  <Text>
+                    Remove this library entry?
+                  </Text>
+                  <Text>
+                    {chapterName} {chapterNumber}:{verseStart}-{verseEnd}
+                  </Text>
+                </Dialog.Content>
+                <Dialog.Actions>
+                  <Button
+                    textColor={theme.colors.secondary}
+                    onPress={toggleDialog}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    textColor={theme.colors.error}
+                    onPress={toggleDialog}
+                  >
+                    OK
+                  </Button>
+                </Dialog.Actions>
+              </Dialog>
+            </Portal>
           </View>
         )}
       />

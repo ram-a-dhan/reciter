@@ -1,4 +1,4 @@
-import { Appbar, Menu, Text, useTheme } from "react-native-paper";
+import { Appbar, Button, Dialog, Menu, Portal, Text, useTheme } from "react-native-paper";
 import type { BottomTabHeaderProps } from "@react-navigation/bottom-tabs";
 import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { Image, StyleSheet, View } from "react-native";
@@ -10,9 +10,14 @@ export default function AppBar({ options, navigation }: BottomTabHeaderProps | N
   const pathname = usePathname();
 
   const [isVisibleMenu, setIsVisibleMenu] = useState(false);
+  const [isVisibleDialog, setIsVisibleDialog] = useState(false);
 
   const toggleMenu = () => {
     setIsVisibleMenu(!isVisibleMenu);
+  };
+
+  const toggleDialog = () => {
+    setIsVisibleDialog(!isVisibleDialog);
   };
 
   const isTabScreen = pathname === "/" || pathname === "/library" || pathname === "/settings";
@@ -41,23 +46,58 @@ export default function AppBar({ options, navigation }: BottomTabHeaderProps | N
       />
 
       {isLibrary && (
-        <Menu
-          visible={isVisibleMenu}
-          onDismiss={toggleMenu}
-          anchorPosition="bottom"
-          anchor={
-            <Appbar.Action
-              icon="dots-vertical"
-              onPress={toggleMenu}
+        <>
+          <Menu
+            visible={isVisibleMenu}
+            onDismiss={toggleMenu}
+            anchorPosition="bottom"
+            anchor={
+              <Appbar.Action
+                icon="dots-vertical"
+                onPress={toggleMenu}
+              />
+            }
+          >
+            <Menu.Item
+              leadingIcon="minus-circle"
+              title="Remove All"
+              onPress={() => {
+                toggleMenu();
+                toggleDialog();
+              }}
             />
-          }
-        >
-          <Menu.Item
-            leadingIcon="minus-circle"
-            title="Remove All"
-            onPress={toggleMenu}
-          />
-        </Menu>
+          </Menu>
+
+          <Portal>
+            <Dialog
+              visible={isVisibleDialog}
+              dismissable
+              dismissableBackButton
+              onDismiss={toggleDialog}
+            >
+              <Dialog.Title>Remove All</Dialog.Title>
+              <Dialog.Content>
+                <Text>
+                  Remove all library entries?
+                </Text>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button
+                  textColor={theme.colors.secondary}
+                  onPress={toggleDialog}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  textColor={theme.colors.error}
+                  onPress={toggleDialog}
+                >
+                  OK
+                </Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
+        </>
       )}
     </Appbar.Header>
   );

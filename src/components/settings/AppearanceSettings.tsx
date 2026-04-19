@@ -3,24 +3,28 @@ import { useThemeStore } from "@/stores/theme";
 import { IThemeOption } from "@/types/theme";
 import { useState } from "react";
 import { View } from "react-native";
-import { Button, Dialog, List, Portal, RadioButton, TouchableRipple } from "react-native-paper";
+import { Button, Dialog, List, Portal, TouchableRipple } from "react-native-paper";
 import ThemeOption from "@/components/options/ThemeOption";
 
 export default function AppearanceSettings() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isVisibleDialog, setIsVisibleDialog] = useState(false);
   const selectedTheme = useThemeStore((state) => state.selectedTheme);
   const setSelectedTheme = useThemeStore((state) => state.setSelectedTheme);
 
   const onPressTheme = (themeOption: IThemeOption) => {
     setSelectedTheme(themeOption);
-    setIsOpen(!isOpen);
+    toggleDialog();
+  };
+
+  const toggleDialog = () => {
+    setIsVisibleDialog(!isVisibleDialog);
   };
 
   return (
     <>
       <List.Section title="Appearance">
         <TouchableRipple
-          onPress={() => setIsOpen(!isOpen)}
+          onPress={toggleDialog}
           borderless
         >
           <List.Item
@@ -38,10 +42,10 @@ export default function AppearanceSettings() {
 
       <Portal>
         <Dialog
-          visible={isOpen}
+          visible={isVisibleDialog}
           dismissable
           dismissableBackButton
-          onDismiss={() => setIsOpen(!isOpen)}
+          onDismiss={toggleDialog}
         >
           <Dialog.Title>App Theme</Dialog.Title>
           <Dialog.ScrollArea style={{ paddingInline: 0 }}>
@@ -55,7 +59,7 @@ export default function AppearanceSettings() {
             ))}
           </Dialog.ScrollArea>
           <Dialog.Actions>
-            <Button onPress={() => setIsOpen(!isOpen)}>
+            <Button onPress={toggleDialog}>
               Close
             </Button>
           </Dialog.Actions>
