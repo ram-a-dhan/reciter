@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { StyleSheet, View } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { StyleSheet } from "react-native";
+import { List, useTheme } from "react-native-paper";
 
 interface ILibrarySectionProps {
   title: string;
@@ -10,23 +10,21 @@ function LibrarySection({ title }: ILibrarySectionProps) {
   const theme = useTheme();
 
   return (
-    <View
+    <List.Section
       style={[
         styles.container,
         { backgroundColor: theme.colors.elevation.level3 },
       ]}
     >
-      <Text style={theme.fonts.titleMedium}>
-        {title}
-      </Text>
-    </View>
+      <List.Subheader>{title}</List.Subheader>
+    </List.Section>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    marginBlock: 0,
     paddingBlock: 8,
-    paddingInline: 16,
   },
 });
 

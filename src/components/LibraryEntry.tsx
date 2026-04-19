@@ -1,7 +1,7 @@
 import { useLibraryStore } from "@/stores/library";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Avatar, IconButton, Text, TouchableRipple, useTheme } from "react-native-paper";
+import { Avatar, Divider, IconButton, List, Menu, Text, TouchableRipple, useTheme } from "react-native-paper";
 
 function LibraryEntry({
   chapterNumber,
@@ -12,51 +12,88 @@ function LibraryEntry({
 }: ILibraryEntry) {
   const theme = useTheme();
 
+  const [isVisibleMenu, setIsVisibleMenu] = useState(false);
+
   const isArabic = useLibraryStore((state) => state.isArabic);
+
+  const toggleMenu = () => {
+    setIsVisibleMenu(!isVisibleMenu);
+  };
 
   return (
     <TouchableRipple
       onPress={() => {}}
       borderless
     >
-      <View style={styles.container}>
-        <Avatar.Text
-          label={`${isArabic ? chapterNumber.toLocaleString("ar-SA") : chapterNumber}`}
-          labelStyle={{ color: theme.colors.primaryContainer }}
-          style={{ backgroundColor: theme.colors.primary }}
-        />
-
-        <View style={styles.textContainer}>
-          <Text style={theme.fonts.titleMedium}>
-            {chapterName}
-          </Text>
-          <Text style={theme.fonts.bodyMedium}>
-            Verse {verseStart}-{verseEnd}
-          </Text>
-          <Text style={theme.fonts.bodySmall}>
-            {new Date(timestamp).toLocaleString("en-GB")}
-          </Text>
-        </View>
-
-        <IconButton
-          icon="dots-vertical"
-          onPress={() => {}}
-        />
-      </View>
+      <List.Item
+        style={styles.paddingFix}
+        title={chapterName}
+        description={(props) => (
+          <View>
+            <Text {...props}>
+              Verse {verseStart}-{verseEnd}
+            </Text>
+            <Text {...props}>
+              {new Date(timestamp).toLocaleString("en-GB")}
+            </Text>
+          </View>
+        )}
+        left={(props) => (
+          <View {...props}>
+            <Avatar.Text
+              label={`${isArabic ? chapterNumber.toLocaleString("ar-SA") : chapterNumber}`}
+              labelStyle={{ color: theme.colors.primaryContainer }}
+              style={{ backgroundColor: theme.colors.primary }}
+            />
+          </View>
+        )}
+        right={(props) => (
+          <View {...props}>
+            <Menu
+              visible={isVisibleMenu}
+              onDismiss={toggleMenu}
+              anchorPosition="bottom"
+              anchor={
+                <IconButton
+                  icon="dots-vertical"
+                  onPress={toggleMenu}
+                  style={styles.marginFix}
+                />
+              }
+            >
+              <Menu.Item
+                leadingIcon="content-copy"
+                title="Copy"
+                onPress={toggleMenu}
+              />
+              <Menu.Item
+                leadingIcon="open-in-new"
+                title="Open in Browser"
+                onPress={toggleMenu}
+              />
+              <Divider style={styles.divider} />
+              <Menu.Item
+                leadingIcon="minus-circle"
+                title="Remove"
+                onPress={toggleMenu}
+              />
+            </Menu>
+          </View>
+        )}
+      />
     </TouchableRipple>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 16,
-    paddingBlock: 8,
-    paddingLeft: 16,
+  paddingFix: {
+    paddingRight: 8,
   },
-  textContainer: {
-    flex: 2,
+  marginFix: {
+    margin: 0,
+  },
+  divider: {
+    marginBlock: 8,
   },
 });
 
