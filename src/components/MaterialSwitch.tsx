@@ -5,7 +5,7 @@ import {
   GestureDetector,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
-import { Button, Icon, useTheme } from "react-native-paper";
+import { Icon, useTheme } from "react-native-paper";
 import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
 import Animated, {
   Extrapolate,

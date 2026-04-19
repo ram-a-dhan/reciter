@@ -61,7 +61,7 @@ export default function TranslationOptionDownloaded({ translationOption }: ILang
               }
             >
               <Menu.Item
-                leadingIcon="delete"
+                leadingIcon="minus-circle"
                 title="Remove"
                 onPress={() => onPressRemove(translationOption.value)}
               />

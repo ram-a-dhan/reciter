@@ -29,7 +29,7 @@ export default function AccountSettings() {
             borderless
           >
             <List.Item
-              style={{ paddingRight: 8 }}
+              style={styles.paddingFix}
               title={"Sign In"}
               description={"Sign in to backup your library & settings."}
               left={(props) => <List.Icon {...props} icon="login" />}
@@ -47,7 +47,7 @@ export default function AccountSettings() {
             borderless
           >
             <List.Item
-              style={{ paddingRight: 8 }}
+              style={styles.paddingFix}
               title={"Username"}
               description={"Your library & settings are backed up."}
               left={(props) => <List.Icon {...props} icon="account-circle" />}
@@ -68,6 +68,9 @@ export default function AccountSettings() {
 }
 
 const styles = StyleSheet.create({
+  paddingFix: {
+    paddingRight: 8,
+  },
   buttonContainer: {
     flexDirection: "row",
     alignItems: "center",

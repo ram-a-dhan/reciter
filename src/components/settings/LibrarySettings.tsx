@@ -1,5 +1,5 @@
 import { useLibraryStore } from "@/stores/library";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { List, TouchableRipple } from "react-native-paper";
 import MaterialSwitch from "@/components/MaterialSwitch";
 
@@ -17,7 +17,7 @@ export default function LibrarySettings() {
           borderless
         >
           <List.Item
-            style={{ paddingRight: 16 }}
+            style={styles.paddingFix}
             title="Use Arabic Number"
             description={isArabic ? "Chapter number is eastern arabic." : "Chapter number is western arabic."}
             left={(props) => <List.Icon {...props} icon={isArabic ? "abjad-arabic" : "numeric-4-box-outline"} />}
@@ -37,7 +37,7 @@ export default function LibrarySettings() {
           borderless
         >
           <List.Item
-            style={{ paddingRight: 16 }}
+            style={styles.paddingFix}
             title="Skip Al-Fatiha"
             description={isSkip ? "Al-Fatiha will not be recorded." : "Al-Fatiha will be recorded."}
             left={(props) => <List.Icon {...props} icon={isSkip ? "door-sliding" : "door-sliding-open"} />}
@@ -55,3 +55,9 @@ export default function LibrarySettings() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  paddingFix: {
+    paddingRight: 16,
+  },
+});
