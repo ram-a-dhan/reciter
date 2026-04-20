@@ -59,8 +59,11 @@ function LibraryEntry({
           <View {...props}>
             <Avatar.Text
               label={`${isArabic ? chapterNumber.toLocaleString("ar-SA") : chapterNumber}`}
-              labelStyle={{ color: theme.colors.primaryContainer }}
               style={{ backgroundColor: theme.colors.primary }}
+              labelStyle={{
+                color: theme.colors.primaryContainer,
+                fontSize: isArabic ? 32 : 24,
+              }}
             />
           </View>
         )}

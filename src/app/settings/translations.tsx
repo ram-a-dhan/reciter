@@ -2,8 +2,8 @@ import TranslationOptionAvailable from "@/components/options/TranslationOptionAv
 import TranslationOptionDownloaded from "@/components/options/TranslationOptionDownloaded";
 import PaperView from "@/components/PaperView";
 import { useTranslationStore } from "@/stores/translation";
-import { ScrollView, StyleSheet, View } from "react-native";
-import { List, Text } from "react-native-paper";
+import { ScrollView } from "react-native";
+import { List } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TranslationsScreen() {
