@@ -1,5 +1,5 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { BottomNavigation, TouchableRipple, useTheme } from "react-native-paper";
+import { BottomNavigation, Text, TouchableRipple, useTheme } from "react-native-paper";
 
 export default function TabBar({ navigation, state, descriptors, insets }: BottomTabBarProps) {
   const theme = useTheme();
@@ -10,14 +10,6 @@ export default function TabBar({ navigation, state, descriptors, insets }: Botto
       safeAreaInsets={insets}
       labeled={false}
       shifting={true}
-      renderTouchable={({ key, ...props }) => (
-        <TouchableRipple
-          key={key}
-          {...props}
-          rippleColor={theme.colors.primary}
-          borderless={false}
-        />
-      )}
       onTabPress={({ route }) => {
         const event = navigation.emit({
           type: "tabPress",
@@ -36,17 +28,22 @@ export default function TabBar({ navigation, state, descriptors, insets }: Botto
           return options.tabBarIcon({ focused, color, size: 24 });
         return null;
       }}
-      getLabelText={({ route }) => {
+      renderLabel={({ route, focused, color }) => {
         const { options } = descriptors[route.key];
 
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
-
-        return label as string;
+        return (
+          <Text
+            style={[
+              theme.fonts.labelMedium,
+              {
+                color: focused ? theme.colors.primary : color,
+                textAlign: "center",
+              },
+            ]}
+          >
+            {options.title}
+          </Text>
+        );
       }}
       activeColor={theme.colors.primaryContainer}
       inactiveColor={theme.colors.onSurfaceVariant}
