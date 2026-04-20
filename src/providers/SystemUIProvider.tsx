@@ -4,25 +4,24 @@ import { useTheme } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import * as NavigationBar from "expo-navigation-bar";
 import * as SystemUI from "expo-system-ui";
+import { useThemeStore } from "@/stores/theme";
 
-interface ISystemProviderProps extends PropsWithChildren {
-  resolvedScheme: "light" | "dark";
-}
-
-export default function SystemUIProvider({ children, resolvedScheme }: ISystemProviderProps) {
+export default function SystemUIProvider({ children }: PropsWithChildren) {
   const theme = useTheme();
+
+  const resolvedTheme = useThemeStore((state) => state.resolvedTheme);
 
   useLayoutEffect(() => {
     const updateInterface = async () => {
       await SystemUI.setBackgroundColorAsync(theme.colors.elevation.level5);
-      NavigationBar.setStyle(resolvedScheme);
+      NavigationBar.setStyle(resolvedTheme);
     };
     updateInterface();
-  }, [resolvedScheme]);
+  }, [resolvedTheme]);
   
   return (
     <>
-      <StatusBar translucent style={resolvedScheme === "dark" ? "light" : "dark"} />
+      <StatusBar translucent style={resolvedTheme === "dark" ? "light" : "dark"} />
       {children}
     </>
   );
