@@ -5,11 +5,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 interface IPaperViewProps extends ComponentProps<typeof SafeAreaView> {}
 
-export default function PaperView({ children, style }: IPaperViewProps) {
+export default function PaperView({
+  children,
+  style,
+  ...props
+}: IPaperViewProps) {
   const theme = useTheme();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.elevation.level3 }, style]}>
+    <View
+      {...props}
+      style={[
+        styles.container,
+        { backgroundColor: theme.colors.elevation.level3 },
+        style,
+      ]}
+    >
       {children}
     </View>
   );

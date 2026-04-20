@@ -1,7 +1,12 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { BottomNavigation, Text, TouchableRipple, useTheme } from "react-native-paper";
+import { BottomNavigation, Text, useTheme } from "react-native-paper";
 
-export default function TabBar({ navigation, state, descriptors, insets }: BottomTabBarProps) {
+export default function TabBar({
+  navigation,
+  state,
+  descriptors,
+  insets,
+}: BottomTabBarProps) {
   const theme = useTheme();
 
   return (

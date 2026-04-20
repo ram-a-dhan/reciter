@@ -255,10 +255,10 @@ export default function MaterialSwitch({
     }
   };
   const onSwitchPress = () => {
-    onPress != null ? onPress() : null;
+    onPress?.();
   };
   useEffect(() => {
-    if (active != selected) {
+    if (active !== selected) {
       changeSwitch(false);
     }
     handleHeight.value = withTiming(selected ? 24 : 16);

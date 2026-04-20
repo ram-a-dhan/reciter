@@ -18,10 +18,13 @@ export default function SystemUIProvider({ children }: PropsWithChildren) {
     };
     updateInterface();
   }, [resolvedTheme]);
-  
+
   return (
     <>
-      <StatusBar translucent style={resolvedTheme === "dark" ? "light" : "dark"} />
+      <StatusBar
+        translucent
+        style={resolvedTheme === "dark" ? "light" : "dark"}
+      />
       {children}
     </>
   );

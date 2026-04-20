@@ -1,10 +1,21 @@
-import { Appbar, Button, Dialog, Menu, Portal, Text, useTheme } from "react-native-paper";
 import type { BottomTabHeaderProps } from "@react-navigation/bottom-tabs";
 import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { usePathname } from "expo-router";
 import { useState } from "react";
+import {
+  Appbar,
+  Button,
+  Dialog,
+  Menu,
+  Portal,
+  Text,
+  useTheme
+} from "react-native-paper";
 
-export default function AppBar({ options, navigation }: BottomTabHeaderProps | NativeStackHeaderProps) {
+export default function AppBar({
+  options,
+  navigation,
+}: BottomTabHeaderProps | NativeStackHeaderProps) {
   const theme = useTheme();
   const pathname = usePathname();
 
@@ -19,19 +30,18 @@ export default function AppBar({ options, navigation }: BottomTabHeaderProps | N
     setIsVisibleDialog(!isVisibleDialog);
   };
 
-  const isTabScreen = pathname === "/" || pathname === "/library" || pathname === "/settings";
+  const isTabScreen =
+    pathname === "/" || pathname === "/library" || pathname === "/settings";
   const canGoBack = !isTabScreen && navigation?.canGoBack?.();
   const isLibrary = pathname === "/library";
 
   return (
     <Appbar.Header style={{ backgroundColor: theme.colors.elevation.level5 }}>
-      {canGoBack && <Appbar.BackAction onPress={() => navigation?.goBack?.()} />}
+      {canGoBack && (
+        <Appbar.BackAction onPress={() => navigation?.goBack?.()} />
+      )}
       <Appbar.Content
-        title={
-          options.title === "Home"
-            ? "Reciter"
-            : options.title
-        }
+        title={options.title === "Home" ? "Reciter" : options.title}
       />
 
       {isLibrary && (
