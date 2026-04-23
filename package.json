@@ -9,7 +9,9 @@
     "start:web": "expo start --web",
     "run:android": "expo run:android",
     "run:ios": "expo run:ios",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.1.1",

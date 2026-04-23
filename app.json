@@ -9,21 +9,22 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./src/assets/splash-icon.png",
+      "image": "./src/assets/icons/reciter/splash-icon-light.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true,
-      "icon": "./src/assets/icons/reciter/reciter1.png"
+      "icon": "./src/assets/icons/reciter/ios-light.png"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/icons/reciter/reciter1.png",
+        "foregroundImage": "./src/assets/icons/reciter/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.reciter"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
