@@ -9,17 +9,22 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./src/assets/icons/reciter/splash-icon-light.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./src/assets/icons/reciter/splash-icon-light-shadow.png",
+      "backgroundColor": "#ffffff",
+      "resizeMode": "contain"
     },
     "ios": {
       "supportsTablet": true,
-      "icon": "./src/assets/icons/reciter/ios-light.png"
+      "icon": {
+        "light": "./src/assets/icons/reciter/ios-light.png",
+        "dark": "./src/assets/icons/reciter/ios-dark.png",
+        "tinted": "./src/assets/icons/reciter/ios-tinted.png"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/icons/reciter/adaptive-icon.png",
+        "monochromeImage": "./src/assets/icons/reciter/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
@@ -46,6 +51,19 @@
             "compileSdkVersion": 35,
             "buildToolsVersion": "35.0.0"
           }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./src/assets/icons/reciter/splash-icon-light-shadow.png",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "image": "./src/assets/icons/reciter/splash-icon-dark-shadow.png",
+            "backgroundColor": "#000000"
+          },
+          "imageWidth": 200,
+          "resizeMode": "contain"
         }
       ]
     ],
