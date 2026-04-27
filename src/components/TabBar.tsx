@@ -1,4 +1,6 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { useEffect, useRef } from "react";
+import { Animated } from "react-native";
 import { BottomNavigation, Text, useTheme } from "react-native-paper";
 
 export default function TabBar({
@@ -9,12 +11,24 @@ export default function TabBar({
 }: BottomTabBarProps) {
   const theme = useTheme();
 
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    scaleAnim.setValue(0.5);
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      friction: 10,
+      tension: 100,
+      useNativeDriver: true,
+    }).start();
+  }, [state.index, scaleAnim]);
+
   return (
     <BottomNavigation.Bar
       navigationState={state}
       safeAreaInsets={insets}
-      labeled={false}
-      shifting={true}
+      labeled={true}
+      shifting={false}
       onTabPress={({ route }) => {
         const event = navigation.emit({
           type: "tabPress",
@@ -53,7 +67,10 @@ export default function TabBar({
       activeColor={theme.colors.primaryContainer}
       inactiveColor={theme.colors.onSurfaceVariant}
       style={{ backgroundColor: theme.colors.elevation.level5 }}
-      activeIndicatorStyle={{ backgroundColor: theme.colors.primary }}
+      activeIndicatorStyle={{
+        backgroundColor: theme.colors.primary,
+        transform: [{ scaleX: scaleAnim }],
+      }}
     />
   );
 }
