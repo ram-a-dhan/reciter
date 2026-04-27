@@ -6,11 +6,15 @@ export default function SettingsLayout() {
   return (
     <>
       <Providers>
-        <Stack screenOptions={{
+        <Stack
+          screenOptions={{
             header: (props) => <AppBar {...props} />,
           }}
         >
-          <Stack.Screen name="translations" options={{ title: "Translations" }} />
+          <Stack.Screen
+            name="translations"
+            options={{ title: "Translations" }}
+          />
         </Stack>
       </Providers>
     </>
