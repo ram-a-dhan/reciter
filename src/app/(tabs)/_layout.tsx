@@ -3,6 +3,7 @@ import TabBar from "@/components/TabBar";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Tabs } from "expo-router";
 import type { ComponentProps } from "react";
+import { Dimensions } from "react-native";
 
 type IIconName = ComponentProps<typeof Icon>["name"];
 
@@ -43,12 +44,30 @@ const routes: IRoute[] = [
 ];
 
 export default function TabsLayout() {
+  const { width } = Dimensions.get("window");
+
   return (
     <>
       <Tabs
         screenOptions={{
           header: (props) => <AppBar {...props} />,
-          animation: "none",
+          transitionSpec: {
+            animation: "spring",
+            config: {
+              friction: 100,
+              tension: 100,
+            },
+          },
+          sceneStyleInterpolator: ({ current, }) => ({
+            sceneStyle: {
+              transform: [{
+                translateX: current.progress.interpolate({
+                  inputRange: [-1, 0 ,1],
+                  outputRange: [-width, 0 , width],
+                }),
+              }],
+            },
+          }),
         }}
         tabBar={(props) => <TabBar {...props} />}
       >
