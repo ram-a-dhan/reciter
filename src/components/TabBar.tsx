@@ -14,10 +14,10 @@ export default function TabBar({
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    scaleAnim.setValue(0.5);
+    scaleAnim.setValue(0);
     Animated.spring(scaleAnim, {
       toValue: 1,
-      friction: 10,
+      friction: 100,
       tension: 100,
       useNativeDriver: true,
     }).start();
