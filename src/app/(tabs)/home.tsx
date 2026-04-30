@@ -8,7 +8,7 @@ export default function HomeTab() {
 
   const {
     isPlaying,
-    setIsPlaying,
+    toggleIsPlaying,
     playButtonContainerStyle,
     playButtonRippleStyle,
     playButtonPulseStyle
@@ -28,7 +28,7 @@ export default function HomeTab() {
             icon={isPlaying ? "pause" : "play"}
             customSize={200}
             mode="flat"
-            onPress={() => setIsPlaying(!isPlaying)}
+            onPress={toggleIsPlaying}
             color={theme.colors.primaryContainer}
             style={{
               backgroundColor: theme.colors.primary,

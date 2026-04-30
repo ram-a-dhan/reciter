@@ -15,6 +15,15 @@ import {
   useTheme,
 } from "react-native-paper";
 
+const formatDateOptions = {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+} as const;
+
 function LibraryEntry({
   chapterNumber,
   chapterName,
@@ -37,6 +46,10 @@ function LibraryEntry({
     setIsVisibleDialog(!isVisibleDialog);
   };
 
+  const formatDate = (time: number) => {
+    return new Date(time).toLocaleString("en-GB", formatDateOptions);
+  };
+
   return (
     <TouchableRipple
       onPress={() => {}}
@@ -51,7 +64,7 @@ function LibraryEntry({
               Verse {verseStart}-{verseEnd}
             </Text>
             <Text {...props}>
-              {new Date(timestamp).toLocaleString("en-GB")}
+              {formatDate(timestamp)}
             </Text>
           </View>
         )}
