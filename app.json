@@ -65,6 +65,12 @@
           "imageWidth": 200,
           "resizeMode": "contain"
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./src/assets/icons/reciter/notification-icon.png"
+        }
       ]
     ],
     "experiments": {
