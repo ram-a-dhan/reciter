@@ -50,7 +50,6 @@ export default function TabsLayout() {
     <>
       <Tabs
         screenOptions={{
-          header: (props) => <AppBar {...props} />,
           transitionSpec: {
             animation: "spring",
             config: {
@@ -68,6 +67,7 @@ export default function TabsLayout() {
               }],
             },
           }),
+          header: (props) => <AppBar {...props} />,
         }}
         tabBar={(props) => <TabBar {...props} />}
       >

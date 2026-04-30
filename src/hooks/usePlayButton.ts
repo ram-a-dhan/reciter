@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useListenerStore } from "@/stores/listener";
+import { useEffect, useRef } from "react";
 import { Animated, Easing, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 
 export default function usePlayButton() {
-
-  const [isPlaying, setIsPlaying] = useState(false);
+  const isPlaying = useListenerStore((state) => state.isListening);
+  const setIsPlaying = useListenerStore((state) => state.setIsListening);
+  const toggleIsPlaying = useListenerStore((state) => state.toggleIsListening);
 
   const animationRef = useRef(new Animated.Value(0)).current;
 
@@ -28,7 +30,7 @@ export default function usePlayButton() {
 
   // Pulse scale: contracts and relaxes 1 --> 1.25 --> 1 over 1 second.
   const pulseScale = animationRef.interpolate({
-    inputRange: [0, 0.5, 1],
+    inputRange: [0, 0.25, 1],
     outputRange: [1, 1.25, 1],
   });
 
@@ -78,6 +80,7 @@ export default function usePlayButton() {
   return {
     isPlaying,
     setIsPlaying,
+    toggleIsPlaying,
     playButtonContainerStyle,
     playButtonRippleStyle,
     playButtonPulseStyle,
