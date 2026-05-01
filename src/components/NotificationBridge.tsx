@@ -1,6 +1,6 @@
 import { useListenerNotification } from "@/hooks/useListenerNotification";
 
-export default function ListenerNotification() {
+export default function NotificationBridge() {
   useListenerNotification();
 
   return null;
