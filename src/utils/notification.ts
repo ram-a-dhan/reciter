@@ -37,14 +37,11 @@ export async function setupNotification(): Promise<boolean> {
   return true;
 }
 
-export async function showListenerNotification(): Promise<void> {
-  // Dismiss existing ones to avoid duplicates
-  await Notifications.dismissNotificationAsync(LISTENER_NOTIFICATION_IDENTIFIER);
-
+export async function showListenerNotification(title?: string): Promise<void> {
   await Notifications.scheduleNotificationAsync({
     identifier: LISTENER_NOTIFICATION_IDENTIFIER,
     content: {
-      title: "Listening...",
+      title: title ? `Listening to ${title}` : "Listening...",
       body: "Tap to open the app",
       categoryIdentifier: LISTENER_NOTIFICATION_CATEGORY_ID,
       // sticky = cannot be swiped away; ongoing = shown as progress style
