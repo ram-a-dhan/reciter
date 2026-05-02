@@ -1,4 +1,4 @@
-import { useListenerNotification } from "@/hooks/useListenerNotification";
+import useListenerNotification from "@/hooks/useListenerNotification";
 
 export default function NotificationBridge() {
   useListenerNotification();

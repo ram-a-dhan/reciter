@@ -1,5 +1,6 @@
 import PaperView from "@/components/PaperView";
 import usePlayButton from "@/hooks/usePlayButton";
+import { setupMicrophone } from "@/utils/notification";
 import { Animated, StyleSheet, View } from "react-native";
 import { FAB, Text, useTheme } from "react-native-paper";
 
@@ -13,6 +14,14 @@ export default function HomeTab() {
     playButtonRippleStyle,
     playButtonPulseStyle
   } = usePlayButton();
+
+  const onPressPlay = async () => {
+    if (isPlaying === false) {
+      const granted = await setupMicrophone();
+      if (!granted) return;
+    }
+    toggleIsPlaying();
+  }
 
   return (
     <PaperView style={styles.container}>
@@ -28,7 +37,7 @@ export default function HomeTab() {
             icon={isPlaying ? "pause" : "play"}
             customSize={200}
             mode="flat"
-            onPress={toggleIsPlaying}
+            onPress={onPressPlay}
             color={theme.colors.primaryContainer}
             style={{
               backgroundColor: theme.colors.primary,
