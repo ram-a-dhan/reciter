@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
-import { useRouter } from "expo-router";
-import * as Notifications from "expo-notifications";
+import { router } from "expo-router";
+import { useEffect, useRef, useState } from "react";
+import NotifyKit, { EventType } from "react-native-notify-kit";
 import { useListenerStore } from "@/stores/listener";
 import {
   setupNotification,
@@ -9,59 +9,56 @@ import {
 } from "@/utils/notification";
 import { LISTENER_NOTIFICATION_ACTION_ID } from "@/constants/notification";
 
-export function useListenerNotification() {
+export default function useListenerNotification() {
+  const [isReady, setIsReady] = useState(false);
+
+  const isMounted = useRef(false);
+
   const isListening = useListenerStore((state) => state.isListening);
   const setIsListening = useListenerStore((state) => state.setIsListening);
-  const router = useRouter();
-  const responseListener = useRef<Notifications.EventSubscription | null>(null);
-  const isReady = useRef(false);
 
-  // One-time setup
+  // Setup on mount
   useEffect(() => {
     setupNotification()
       .then((granted) => {
-        isReady.current = granted;
+        setIsReady(granted);
       });
   }, []);
 
-  // Sync isListening → notification
+  // Show/dismiss based on isListening
   useEffect(() => {
-    if (!isReady.current) return;
+    if (!isReady) return;
+
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
 
     if (isListening) {
       showListenerNotification();
     } else {
       dismissListenerNotification();
     }
-  }, [isListening]);
+  }, [isListening, isReady]);
 
-  // Handle notification interactions
+  // Interaction when app is in foreground
   useEffect(() => {
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        const { actionIdentifier } = response;
+    const unsubscribe = NotifyKit.onForegroundEvent(({ type, detail }) => {
+      if (
+        type === EventType.ACTION_PRESS &&
+        detail.pressAction?.id ===
+          LISTENER_NOTIFICATION_ACTION_ID.STOP_LISTENING
+      ) {
+        setIsListening(false);
+        return;
+      }
 
-        // User tapped "Stop Listening" action button
-        if (actionIdentifier === LISTENER_NOTIFICATION_ACTION_ID.STOP_LISTENING) {
-          setIsListening(false);
-          return;
-        }
+      if (type === EventType.PRESS) {
+        router.push("/(tabs)/home");
+        return;
+      }
+    });
 
-        // User tapped the notification body → navigate to home
-        if (actionIdentifier === Notifications.DEFAULT_ACTION_IDENTIFIER) {
-          router.push("/(tabs)/home");
-        }
-      });
-
-    return () => {
-      responseListener.current?.remove();
-    };
-  }, []);
-
-  // Cleanup on unmount (app killed)
-  useEffect(() => {
-    return () => {
-      dismissListenerNotification();
-    };
+    return unsubscribe;
   }, []);
 }
