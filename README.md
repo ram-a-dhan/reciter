@@ -15,6 +15,8 @@ $ pnpm install
 
 ## Run
 
+### Expo Go
+
 Run the project then use Expo Go:
 
 ```
@@ -25,6 +27,14 @@ If need be, clear the cache:
 
 ```
 $ pnpm start --clear
+```
+
+### Dev Build
+
+Prepare your device or emulator then run it:
+
+```
+$ pnpm android
 ```
 
 ## Install Packages
