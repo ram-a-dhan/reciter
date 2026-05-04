@@ -1,22 +1,14 @@
-import { NOTIFICATION_ICON_SIZE } from "@/constants/notification";
 import {
   ConfigPlugin,
   withAppBuildGradle,
   withAndroidManifest,
-  withDangerousMod,
 } from "expo/config-plugins";
-import sharp from "sharp";
-import path from "path";
-import fs from "fs";
 
 interface IConfigPluginIcon {
   icon?: string;
 }
 
-const withNotifyKit: ConfigPlugin<IConfigPluginIcon> = (
-  config,
-  { icon } = {},
-) => {
+const withNotifyKit: ConfigPlugin<IConfigPluginIcon> = (config) => {
   // Step 1: Maven
   config = withAppBuildGradle(config, (mod) => {
     const mavenUrl = `maven { url "$rootDir/../node_modules/react-native-notify-kit/android/libs" }`;
@@ -64,33 +56,6 @@ const withNotifyKit: ConfigPlugin<IConfigPluginIcon> = (
 
     return mod;
   });
-
-  // Step 3: Icon
-  if (icon) {
-    config = withDangerousMod(config, [
-      "android",
-      async (mod) => {
-        const iconSource = path.resolve(mod.modRequest.projectRoot, icon);
-        const resDir = path.join(
-          mod.modRequest.platformProjectRoot,
-          "app/src/main/res"
-        );
-
-        await Promise.all(
-          Object.entries(NOTIFICATION_ICON_SIZE).map(async ([folder, size]) => {
-            const outDir = path.join(resDir, folder);
-            fs.mkdirSync(outDir, { recursive: true });
-            await sharp(iconSource)
-              .resize(size, size)
-              .png()
-              .toFile(path.join(outDir, "notification_icon.png"));
-          })
-        );
-
-        return mod;
-      },
-    ]);
-  }
 
   return config;
 };
