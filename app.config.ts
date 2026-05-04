@@ -16,6 +16,9 @@ module.exports = ({ config } : ConfigContext): ExpoConfig => ({
     "backgroundColor": "#ffffff",
     "resizeMode": "contain",
   },
+  "notification": {
+    "icon": "./src/assets/icons/reciter/notification-icon.png",
+  },
   "ios": {
     "supportsTablet": true,
     "icon": {
@@ -69,12 +72,7 @@ module.exports = ({ config } : ConfigContext): ExpoConfig => ({
         "resizeMode": "contain",
       },
     ],
-    [
-      "./src/plugins/withNotifyKit",
-      {
-        "icon": "./src/assets/icons/reciter/notification-icon.png",
-      },
-    ],
+    "./src/plugins/withNotifyKit",
   ],
   "experiments": {
     "typedRoutes": true,
