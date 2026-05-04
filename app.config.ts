@@ -11,11 +11,6 @@ module.exports = ({ config } : ConfigContext): ExpoConfig => ({
   "icon": "./src/assets/icons/reciter/reciter1.png",
   "userInterfaceStyle": "automatic",
   "newArchEnabled": true,
-  "splash": {
-    "image": "./src/assets/icons/reciter/splash-icon-light-shadow.png",
-    "backgroundColor": "#ffffff",
-    "resizeMode": "contain",
-  },
   "notification": {
     "icon": "./src/assets/icons/reciter/notification-icon.png",
   },
@@ -62,12 +57,8 @@ module.exports = ({ config } : ConfigContext): ExpoConfig => ({
     [
       "expo-splash-screen",
       {
-        "image": "./src/assets/icons/reciter/splash-icon-light-shadow.png",
-        "backgroundColor": "#ffffff",
-        "dark": {
-          "image": "./src/assets/icons/reciter/splash-icon-dark-shadow.png",
-          "backgroundColor": "#000000",
-        },
+        "image": "./src/assets/icons/reciter/splash-icon.png",
+        "backgroundColor": "#408040",
         "imageWidth": 200,
         "resizeMode": "contain",
       },
