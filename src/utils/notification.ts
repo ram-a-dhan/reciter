@@ -8,6 +8,7 @@ import NotifyKit, {
   EventType,
 } from "react-native-notify-kit";
 import { useListenerStore } from "@/stores/listener";
+import { stopListenerTranscription } from "@/utils/listener";
 import {
   LISTENER_NOTIFICATION_CHANNEL_ID,
   LISTENER_NOTIFICATION_IDENTIFIER,
@@ -95,6 +96,7 @@ export async function registerNotification() {
       detail.pressAction?.id === LISTENER_NOTIFICATION_ACTION_ID.STOP_LISTENING
     ) {
       useListenerStore.getState().setIsListening(false);
+      await stopListenerTranscription();
       await dismissListenerNotification();
       return;
     }
@@ -104,5 +106,4 @@ export async function registerNotification() {
       return;
     }
   });
-
 }
