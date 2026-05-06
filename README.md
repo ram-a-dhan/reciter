@@ -13,6 +13,26 @@ Install dependencies:
 $ pnpm install
 ```
 
+Download the models from:
+
+```
+https://huggingface.co/ram-a-dhan/tarteel-whisper-quran-ggml
+```
+
+And put them in:
+
+```
+src/assets/models/
+```
+
+Then change the export path of the `WHISPER_MODEL` constant accordingly:
+
+```ts
+// src/constants/model.ts
+
+export { default as WHISPER_MODEL } from "@/assets/models/*.bin";
+```
+
 ## Run
 
 ### Expo Go
