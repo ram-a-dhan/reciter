@@ -1,7 +1,6 @@
 import { Stack } from "expo-router";
 import Providers from "@/providers";
 import useListener from "@/hooks/useListener";
-import NotificationBridge from "@/components/NotificationBridge";
 
 export default function RootLayout() {
   useListener();
@@ -9,7 +8,6 @@ export default function RootLayout() {
   return (
     <>
       <Providers>
-        <NotificationBridge />
         <Stack
           screenOptions={{
             headerShown: false,

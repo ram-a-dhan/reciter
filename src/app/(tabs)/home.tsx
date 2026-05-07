@@ -1,5 +1,6 @@
 import PaperView from "@/components/PaperView";
 import usePlayButton from "@/hooks/usePlayButton";
+import { useListenerStore } from "@/stores/listener";
 import { setupMicrophone } from "@/utils/notification";
 import { Animated, StyleSheet, View } from "react-native";
 import { FAB, Text, useTheme } from "react-native-paper";
@@ -7,12 +8,14 @@ import { FAB, Text, useTheme } from "react-native-paper";
 export default function HomeTab() {
   const theme = useTheme();
 
+  const isTransitioning = useListenerStore((state) => state.isTransitioning);
+
   const {
     isPlaying,
     toggleIsPlaying,
     playButtonContainerStyle,
     playButtonRippleStyle,
-    playButtonPulseStyle
+    playButtonPulseStyle,
   } = usePlayButton();
 
   const onPressPlay = async () => {
@@ -21,20 +24,32 @@ export default function HomeTab() {
       if (!granted) return;
     }
     toggleIsPlaying();
-  }
+  };
 
   return (
     <PaperView style={styles.container}>
       <Text style={theme.fonts.titleMedium}>
-        {isPlaying ? "Listening to Ar-Rahman 55:55" : "Press the button to start/stop listening."}
+        {
+          isTransitioning
+            ? "Please wait for a moment..."
+            : isPlaying
+            ? "Listening..."
+            : "Press the button to start/stop listening."
+        }
       </Text>
 
       <View style={playButtonContainerStyle}>
         <Animated.View style={playButtonRippleStyle} />
-        
+
         <Animated.View style={playButtonPulseStyle}>
           <FAB
-            icon={isPlaying ? "pause" : "play"}
+            icon={
+              isTransitioning
+                ? "timer-sand"
+                : isPlaying
+                ? "pause"
+                : "play"
+            }
             customSize={200}
             mode="flat"
             onPress={onPressPlay}
@@ -43,6 +58,7 @@ export default function HomeTab() {
               backgroundColor: theme.colors.primary,
               borderRadius: "100%",
             }}
+            disabled={isTransitioning}
           />
         </Animated.View>
       </View>

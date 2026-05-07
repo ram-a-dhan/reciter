@@ -5,6 +5,8 @@ interface IUseListenerStore {
   isListening: boolean;
   setIsListening: (payload: boolean) => void;
   toggleIsListening: () => void;
+  isTransitioning: boolean;
+  setIsTransitioning: (payload: boolean) => void;
 }
 
 export const useListenerStore = create<IUseListenerStore>()(
@@ -18,6 +20,12 @@ export const useListenerStore = create<IUseListenerStore>()(
     toggleIsListening: () => {
       set((state) => {
         state.isListening = !state.isListening;
+      });
+    },
+    isTransitioning: false,
+    setIsTransitioning: (payload) => {
+      set((state) => {
+        state.isTransitioning = payload;
       });
     },
   })),

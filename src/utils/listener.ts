@@ -8,16 +8,28 @@ interface IStartListenerTranscriptionOptions {
 
 let whisperContext: WhisperContext | null = null;
 let stopTranscription: (() => Promise<void>) | null = null;
+let isInitializing: boolean = false;
+let isStarting: boolean = false;
+
+function isContextValid(ctx: WhisperContext | null): boolean {
+  if (!ctx) return false
+  const ptr = (ctx as any).ptr
+  return typeof ptr === 'number' && ptr > 0
+}
 
 export async function initListenerInstance() {
-  if (whisperContext) return;
+  if (isContextValid(whisperContext) || isInitializing) return;
+  isInitializing = true;
 
   try {
+    whisperContext = null;
     whisperContext = await initWhisper({
       filePath: WHISPER_MODEL,
     });
   } catch (error) {
     console.error("listener init error:", error);
+  } finally {
+    isInitializing = false;
   }
 }
 
@@ -25,13 +37,26 @@ export async function startListenerTranscription({
   onText,
   onEnd,
 }: IStartListenerTranscriptionOptions) {
-  if (!whisperContext) return;
+  if (isStarting) return;
+  isStarting = true;
+
+  if (!isContextValid(whisperContext)) {
+    await initListenerInstance();
+  }
+
+  try {
+    
+    await stopListenerTranscription();
+  } catch (error) {
+    console.error("yalla habibi", error);
+    
+  }
 
   try {
     const {
       stop,
       subscribe,
-    } = await whisperContext.transcribeRealtime({
+    } = await whisperContext!.transcribeRealtime({
       language: "ar",
       temperature: 0,
       realtimeAudioSec: 60,
@@ -49,6 +74,9 @@ export async function startListenerTranscription({
     });
   } catch (error) {
     console.error("listener start error:", error);
+    whisperContext = null;
+  } finally {
+    isStarting = false;
   }
 }
 
