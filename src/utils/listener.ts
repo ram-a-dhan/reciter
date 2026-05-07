@@ -44,13 +44,7 @@ export async function startListenerTranscription({
     await initListenerInstance();
   }
 
-  try {
-    
-    await stopListenerTranscription();
-  } catch (error) {
-    console.error("yalla habibi", error);
-    
-  }
+  await stopListenerTranscription();
 
   try {
     const {
@@ -60,6 +54,7 @@ export async function startListenerTranscription({
       language: "ar",
       temperature: 0,
       realtimeAudioSec: 60,
+      realtimeAudioSliceSec: 10,
       realtimeAudioMinSec: 2,
       beamSize: 5,
       bestOf: 5,
