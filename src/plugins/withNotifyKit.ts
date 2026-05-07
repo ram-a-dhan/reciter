@@ -49,7 +49,8 @@ const withNotifyKit: ConfigPlugin<IConfigPluginIcon> = (config) => {
           "android:name": "app.notifee.core.ForegroundService",
           "android:exported": "false",
           "android:foregroundServiceType": "microphone",
-        },
+          "android:stopWithTask": "true",
+        } as any,
       });
     }
     app.service = services;
