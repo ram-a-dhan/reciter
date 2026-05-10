@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^15.1.1",
+    "@fugood/react-native-audio-pcm-stream": "^1.1.4",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.4.0",
     "expo": "~54.0.33",

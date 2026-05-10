@@ -13,7 +13,10 @@ import {
   stopListenerTranscription,
   releaseListenerInstance,
 } from "@/utils/listener";
+import { matchVerse } from "@/utils/verseMatcher";
+import { getQuranIndex, initQuranIndex } from "@/utils/quranIndex";
 import { LISTENER_NOTIFICATION_ACTION_ID } from "@/constants/notification";
+import quranMeta from "@/assets/quran/quran-meta.json";
 
 export default function useListener() {
   const [isReady, setIsReady] = useState(false);
@@ -22,6 +25,9 @@ export default function useListener() {
   const isListening = useListenerStore((state) => state.isListening);
   const setIsListening = useListenerStore((state) => state.setIsListening);
   const setIsTransitioning = useListenerStore((state) => state.setIsTransitioning);
+  const activeSession = useListenerStore(state => state.activeSession);
+  const updateActiveSession = useListenerStore(state => state.updateActiveSession);
+  const clearActiveSession = useListenerStore(state => state.clearActiveSession);
 
   // Setup on mount
   useEffect(() => {
@@ -29,6 +35,7 @@ export default function useListener() {
     dismissListenerNotification()
       .then(() => setupNotification())
       .then((granted) => setIsReady(granted))
+      .then(() => initQuranIndex())
       .then(() => initListenerInstance())
       .then(() => setIsTransitioning(false));
 
@@ -51,8 +58,25 @@ export default function useListener() {
       showListenerNotification().then(() => {
         return startListenerTranscription({
           onText: (text) => {
-            // TODO: verse matcher
-            console.log(text);
+            const result = matchVerse(
+              text,
+              getQuranIndex(),
+              activeSession?.chapterNumber,
+              activeSession?.verseEnd,
+            );
+
+            if (!result) return;
+
+            // TODO: Check fine-tuning results
+            // console.log("text", text);
+            // console.log("result", result);
+
+            updateActiveSession(result);
+            const meta = quranMeta.find(q => q.chapterNumber === result.chapterNumber);
+            if (meta && meta.verseCount === result.verseNumber) {
+              updateActiveSession(result);
+              requestAnimationFrame(() => clearActiveSession());
+            }
           },
           onEnd: () => {
             setIsListening(false);
@@ -62,9 +86,9 @@ export default function useListener() {
       .then(() => setIsTransitioning(false));
     } else {
       setIsTransitioning(true);
-      stopListenerTranscription().then(() => {
-        return dismissListenerNotification();
-      })
+      stopListenerTranscription()
+      .then(() => clearActiveSession())
+      .then(() => dismissListenerNotification())
       .then(() => setIsTransitioning(false));
     }
   }, [isListening, isReady]);
