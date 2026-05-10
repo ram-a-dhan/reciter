@@ -9,6 +9,7 @@ export default function HomeTab() {
   const theme = useTheme();
 
   const isTransitioning = useListenerStore((state) => state.isTransitioning);
+  const activeSession = useListenerStore((state) => state.activeSession);
 
   const {
     isPlaying,
@@ -32,6 +33,8 @@ export default function HomeTab() {
         {
           isTransitioning
             ? "Please wait for a moment..."
+            : isPlaying && activeSession
+            ? `Listening to ${activeSession.chapterName} ${activeSession.chapterNumber}:${activeSession.verseEnd}`
             : isPlaying
             ? "Listening..."
             : "Press the button to start/stop listening."
