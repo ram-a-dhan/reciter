@@ -58,23 +58,22 @@ export default function useListener() {
       showListenerNotification().then(() => {
         return startListenerTranscription({
           onText: (text) => {
-            const result = matchVerse(
-              text,
-              getQuranIndex(),
-              activeSession?.chapterNumber,
-              activeSession?.verseEnd,
-            );
+            const result = matchVerse({
+              sttSlice: text,
+              corpus: getQuranIndex(),
+              activeChapterNumber: activeSession?.chapterNumber,
+              activeVerseNumber: activeSession?.verseEnd,
+            });
 
             if (!result) return;
 
             // TODO: Check fine-tuning results
-            // console.log("text", text);
-            // console.log("result", result);
+            console.log("text", text);
+            console.log("result", result);
 
             updateActiveSession(result);
             const meta = quranMeta.find(q => q.chapterNumber === result.chapterNumber);
             if (meta && meta.verseCount === result.verseNumber) {
-              updateActiveSession(result);
               requestAnimationFrame(() => clearActiveSession());
             }
           },
