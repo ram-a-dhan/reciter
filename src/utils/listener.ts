@@ -1,5 +1,4 @@
-import { initWhisper } from "whisper.rn";
-import type { WhisperContext } from "whisper.rn";
+import { initWhisper, WhisperContext } from "whisper.rn/index.js";
 import { WHISPER_MODEL } from "@/constants/model";
 
 interface IStartListenerTranscriptionOptions {
@@ -51,13 +50,16 @@ export async function startListenerTranscription({
   try {
     const { stop, subscribe } = await whisperContext!.transcribeRealtime({
       language: "ar",
-      temperature: 0,
-      realtimeAudioSec: 60,
-      realtimeAudioSliceSec: 10,
+      prompt: "بسم الله الرحمن الرحيم" ,
+      realtimeAudioSec: 3600 * 3, // 3 hours
+      realtimeAudioSliceSec: 15,
       realtimeAudioMinSec: 2,
       beamSize: 5,
       bestOf: 5,
-      prompt: "بسم الله الرحمن الرحيم" ,
+      maxContext: -1,
+      temperature: 0.2,
+      useVad: true,
+      vadThold: 0.5,
     });
  
     stopTranscription = stop;
