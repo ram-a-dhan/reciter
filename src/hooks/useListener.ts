@@ -55,40 +55,41 @@ export default function useListener() {
 
     if (isListening) {
       setIsTransitioning(true);
-      showListenerNotification().then(() => {
-        return startListenerTranscription({
-          onText: (text) => {
-            const result = matchVerse({
-              sttSlice: text,
-              corpus: getQuranIndex(),
-              activeChapterNumber: activeSession?.chapterNumber,
-              activeVerseNumber: activeSession?.verseEnd,
-            });
+      showListenerNotification()
+        .then(() => {
+          return startListenerTranscription({
+            onText: (text) => {
+              const result = matchVerse({
+                sttSlice: text,
+                corpus: getQuranIndex(),
+                activeChapterNumber: activeSession?.chapterNumber,
+                activeVerseNumber: activeSession?.verseEnd,
+              });
 
-            if (!result) return;
+              if (!result) return;
 
-            // TODO: Check fine-tuning results
-            console.log("text", text);
-            console.log("result", result);
+              // TODO: Check fine-tuning results
+              console.log("text", text);
+              console.log("result", result);
 
-            updateActiveSession(result);
-            const meta = quranMeta.find(q => q.chapterNumber === result.chapterNumber);
-            if (meta && meta.verseCount === result.verseNumber) {
-              requestAnimationFrame(() => clearActiveSession());
-            }
-          },
-          onEnd: () => {
-            setIsListening(false);
-          },
+              updateActiveSession(result);
+              const meta = quranMeta.find(q => q.chapterNumber === result.chapterNumber);
+              if (meta && meta.verseCount === result.verseNumber) {
+                requestAnimationFrame(() => clearActiveSession());
+              }
+            },
+            onEnd: () => {
+              setIsListening(false);
+            },
+          })
         })
-      })
-      .then(() => setIsTransitioning(false));
+        .then(() => setIsTransitioning(false));
     } else {
       setIsTransitioning(true);
       stopListenerTranscription()
-      .then(() => clearActiveSession())
-      .then(() => dismissListenerNotification())
-      .then(() => setIsTransitioning(false));
+        .then(() => clearActiveSession())
+        .then(() => dismissListenerNotification())
+        .then(() => setIsTransitioning(false));
     }
   }, [isListening, isReady]);
 
