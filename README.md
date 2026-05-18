@@ -33,6 +33,18 @@ Then change the export path of the `WHISPER_MODEL` constant accordingly:
 export { default as WHISPER_MODEL } from "@/assets/models/*.bin";
 ```
 
+Download the prototype translation:
+
+```
+$ node src/scripts/downloadEveryAyahCom.mjs
+```
+
+Then unzip all of them:
+
+```sh
+$ for f in src/assets/translations/prototype/*.zip; do unzip -n "$f" -d src/assets/translations/prototype/; done
+```
+
 ## Run
 
 ### Expo Go
