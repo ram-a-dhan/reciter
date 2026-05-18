@@ -42,4 +42,9 @@ yarn-error.*
 
 # ai models
 src/assets/models/*
-!src/assets/models/.gitkeep
+
+# prototype translation
+src/assets/translations/prototype/*
+
+# mandatory empty folders
+!.gitkeep
