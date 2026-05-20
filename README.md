@@ -89,10 +89,18 @@ Diagnose dependencies and version compatibilities:
 
 ```
 $ pnpm dlx expo-doctor
+
+# or
+
+$ pnpm diag
 ```
 
 Fix diagnosed problems:
 
 ```
 $ pnpm exec expo install --check
+
+# or
+
+$ pnpm fix
 ```
