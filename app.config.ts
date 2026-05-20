@@ -43,6 +43,8 @@ module.exports = ({ config } : ConfigContext): ExpoConfig => ({
     "expo-system-ui",
     "expo-navigation-bar",
     "expo-font",
+    "expo-audio",
+    "expo-asset",
     [
       "expo-build-properties",
       {
@@ -64,6 +66,7 @@ module.exports = ({ config } : ConfigContext): ExpoConfig => ({
       },
     ],
     "./src/plugins/withNotifyKit",
+    "./src/plugins/withTranslationAssets",
   ],
   "experiments": {
     "typedRoutes": true,
