@@ -36,7 +36,7 @@ export { default as WHISPER_MODEL } from "@/assets/models/*.bin";
 Download the prototype translation:
 
 ```
-$ node src/scripts/downloadEveryAyahCom.mjs
+$ node src/scripts/downloadPrototypeTranslation.mjs
 ```
 
 Then unzip all of them:
@@ -66,7 +66,7 @@ $ pnpm start --clear
 Prepare your device or emulator then run it:
 
 ```
-$ pnpm android
+$ pnpm run:android
 ```
 
 ## Install Packages
