@@ -5,11 +5,11 @@
   "scripts": {
     "start": "expo start",
     "start:android": "expo start --android",
-    "start:ios": "expo start --ios",
-    "start:web": "expo start --web",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "lint": "expo lint"
+    "prebuild:android": "expo prebuild --clean --platform android",
+    "run:android": "expo run:android",
+    "lint": "expo lint",
+    "diag": "pnpm dlx expo-doctor",
+    "fix": "expo install --check"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.1.1",
