@@ -43,8 +43,8 @@ yarn-error.*
 # ai models
 src/assets/models/*
 
-# prototype translation
-src/assets/translations/prototype/*
+# audio translation files
+src/assets/translations/*/*
 
 # mandatory empty folders
 !.gitkeep

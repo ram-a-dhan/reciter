@@ -13,6 +13,8 @@ Install dependencies:
 $ pnpm install
 ```
 
+### Model
+
 Download the models from:
 
 ```
@@ -33,6 +35,10 @@ Then change the export path of the `WHISPER_MODEL` constant accordingly:
 export { default as WHISPER_MODEL } from "@/assets/models/*.bin";
 ```
 
+### Translations
+
+#### Prototype Translation
+
 Download the prototype translation:
 
 ```
@@ -43,6 +49,54 @@ Then unzip all of them:
 
 ```sh
 $ for f in src/assets/translations/prototype/*.zip; do unzip -n "$f" -d src/assets/translations/prototype/; done
+```
+
+#### Edge TTS Translations
+
+Download the translation `.txt` file from:
+
+```
+https://tanzil.net/trans
+```
+
+Then add to the languages in the `buildTranslationCorpus.mjs`:
+
+```ts
+const LANGUAGES = [
+  ...,
+  {
+    code: "<two-letter-lang-code>",
+    inputFile: "<tanzil-translation-text-file>",
+    outputFile: "quran-translation-<two-letter-lang-code>.json",
+  },
+];
+```
+
+Then run the script:
+
+```
+$ node src/scripts/buildTranslationCorpus.mjs
+```
+
+After that, add to the languages in the `generateTranslationAudio.mjs`:
+
+```ts
+
+const LANGUAGES = {
+  ...,
+  ["<two-letter-lang-code>"]: {
+    voice: "<voice-preset>",
+    rate: "+0%",
+    corpus: "quran-translation-<two-letter-lang-code>.json",
+    outputDir: "<two-letter-lang-code>",
+  },
+};
+```
+
+Then run the script:
+
+```
+$ node src/scripts/generateTranslationAudio.mjs --lang <two-letter-lang-code>
 ```
 
 ## Run
